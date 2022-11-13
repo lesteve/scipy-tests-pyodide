@@ -49,7 +49,6 @@ test_submodules = test_submodules_str.split()
 
 expected_test_results_by_category = {
     "failed": [
-        "scipy.integrate._ivp.tests",
         "scipy.interpolate.tests",
         "scipy.ndimage.tests",
         "scipy.sparse.linalg._dsolve.tests",
@@ -58,11 +57,7 @@ expected_test_results_by_category = {
     ],
     "fatal error or timeout": [
         "scipy.fft.tests",
-        "scipy.integrate.tests",
-        "scipy.io.tests",
-        "scipy._lib.tests",
         "scipy.linalg.tests",
-        "scipy.optimize.tests",
         "scipy.signal.tests",
         "scipy.sparse.linalg._isolve.tests",
         "scipy.sparse.linalg.tests",
@@ -87,6 +82,15 @@ expected_test_results_by_category = {
         "scipy.sparse.linalg._eigen.tests",
         "scipy.spatial.transform.tests",
     ],
+    "pytest usage error": [
+        "scipy.integrate._ivp.tests",
+    ],
+    "tests collection error": [
+        "scipy.integrate.tests",
+        "scipy.io.tests",
+        "scipy._lib.tests",
+        "scipy.optimize.tests",
+    ]
 }
 
 
@@ -216,6 +220,8 @@ def print_summary(module_results):
         print(f"category {category} ({len(module_list)} modules)")
         for each in module_list:
             print(f"    {each}")
+
+    sys.stdout.flush()
 
     # Compare test results with expectations. Easiest way I found to compare
     # dicts with a good error message is to use unittest
