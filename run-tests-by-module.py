@@ -8,7 +8,7 @@ import itertools
 import unittest
 
 # This is the output of the command run from the scipy root folder:
-# find scipy -name tests | sort | perl -pe 's@/tests@@' | perl -pe 's@/@.@g'
+# find scipy -name tests | sort | perl -pe 's@/@.@g'
 test_submodules_str = """
 scipy._build_utils.tests
 scipy.cluster.tests
