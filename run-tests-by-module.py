@@ -49,6 +49,7 @@ test_submodules = test_submodules_str.split()
 
 expected_test_results_by_category = {
     "failed": [
+        "scipy.integrate._ivp",
         "scipy.interpolate",
         "scipy.ndimage",
         "scipy.sparse.linalg._dsolve",
@@ -57,7 +58,6 @@ expected_test_results_by_category = {
     ],
     "fatal error or timeout": [
         "scipy.fft",
-        "scipy.integrate._ivp",
         "scipy.integrate",
         "scipy.io",
         "scipy._lib",
