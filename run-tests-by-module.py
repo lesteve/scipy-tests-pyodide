@@ -90,7 +90,7 @@ expected_test_results_by_category = {
         "scipy.io.tests",
         "scipy._lib.tests",
         "scipy.optimize.tests",
-    ]
+    ],
 }
 
 
@@ -233,7 +233,7 @@ def print_summary(module_results):
         k: set(v) for k, v in expected_test_results_by_category.items()
     }
     tc.assertDictEqual(expected_test_results_with_sets, test_results_with_sets)
-    print('Test results matched expected ones')
+    print("Test results matched expected ones")
 
 
 def main():
