@@ -9,9 +9,13 @@ python run-tests-by-modules.py
 
 # Manually curated list of issues
 
-TODO
+TODO: try to reduce fatal error in module tests to smaller snippets.
 
-Some tests need built extension, so scipy-tests is not enough.
+Some tests need built extension, so scipy-tests is not enough. These show up as
+tests collection error below.
+
+`scipy.integrate._ivp.tests` shows up a pytest usage error because there is no
+`__init__.py` for this module.
 
 Results summary by modules:
 
