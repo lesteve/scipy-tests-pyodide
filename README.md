@@ -19,77 +19,79 @@ Results summary by modules:
 ================================================================================
 Test results summary
 ================================================================================
-scipy._build_utils passed (exit code 0)
-scipy.cluster passed (exit code 0)
-scipy.constants passed (exit code 0)
-scipy.fftpack passed (exit code 0)
-scipy.fft._pocketfft passed (exit code 0)
-scipy.fft fatal error or timeout (exit code 7)
-scipy.integrate._ivp fatal error or timeout (exit code 4)
-scipy.integrate fatal error or timeout (exit code 2)
-scipy.interpolate fatal error or timeout (exit code None)
-scipy.io.arff passed (exit code 0)
-scipy.io._harwell_boeing passed (exit code 0)
-scipy.io.matlab passed (exit code 0)
-scipy.io fatal error or timeout (exit code 2)
-scipy._lib fatal error or timeout (exit code 2)
-scipy.linalg fatal error or timeout (exit code 7)
-scipy.misc passed (exit code 0)
-scipy.ndimage failed (exit code 1)
-scipy.odr passed (exit code 0)
-scipy.optimize fatal error or timeout (exit code 2)
-scipy.optimize._trustregion_constr passed (exit code 0)
-scipy.signal fatal error or timeout (exit code 7)
-scipy.sparse.csgraph passed (exit code 0)
-scipy.sparse.linalg._dsolve failed (exit code 1)
-scipy.sparse.linalg._eigen.arpack failed (exit code 1)
-scipy.sparse.linalg._eigen.lobpcg passed (exit code 0)
-scipy.sparse.linalg._eigen passed (exit code 0)
-scipy.sparse.linalg._isolve fatal error or timeout (exit code 7)
-scipy.sparse.linalg fatal error or timeout (exit code 7)
-scipy.sparse fatal error or timeout (exit code 7)
-scipy.spatial fatal error or timeout (exit code 7)
-scipy.spatial.transform passed (exit code 0)
-scipy.special failed (exit code 1)
-scipy.stats fatal error or timeout (exit code None)
+scipy._build_utils.tests passed (exit code 0)
+scipy.cluster.tests passed (exit code 0)
+scipy.constants.tests passed (exit code 0)
+scipy.fftpack.tests passed (exit code 0)
+scipy.fft._pocketfft.tests passed (exit code 0)
+scipy.fft.tests fatal error or timeout (exit code 7)
+scipy.integrate._ivp.tests pytest usage error (exit code 4)
+scipy.integrate.tests tests collection error (exit code 2)
+scipy.interpolate.tests failed (exit code 1)
+scipy.io.arff.tests passed (exit code 0)
+scipy.io._harwell_boeing.tests passed (exit code 0)
+scipy.io.matlab.tests passed (exit code 0)
+scipy.io.tests tests collection error (exit code 2)
+scipy._lib.tests tests collection error (exit code 2)
+scipy.linalg.tests fatal error or timeout (exit code 7)
+scipy.misc.tests passed (exit code 0)
+scipy.ndimage.tests failed (exit code 1)
+scipy.odr.tests passed (exit code 0)
+scipy.optimize.tests tests collection error (exit code 2)
+scipy.optimize._trustregion_constr.tests passed (exit code 0)
+scipy.signal.tests fatal error or timeout (exit code 7)
+scipy.sparse.csgraph.tests passed (exit code 0)
+scipy.sparse.linalg._dsolve.tests failed (exit code 1)
+scipy.sparse.linalg._eigen.arpack.tests failed (exit code 1)
+scipy.sparse.linalg._eigen.lobpcg.tests passed (exit code 0)
+scipy.sparse.linalg._eigen.tests passed (exit code 0)
+scipy.sparse.linalg._isolve.tests fatal error or timeout (exit code 7)
+scipy.sparse.linalg.tests fatal error or timeout (exit code 7)
+scipy.sparse.tests fatal error or timeout (exit code 7)
+scipy.spatial.tests fatal error or timeout (exit code 7)
+scipy.spatial.transform.tests passed (exit code 0)
+scipy.special.tests failed (exit code 1)
+scipy.stats.tests fatal error or timeout (exit code 7)
 
 --------------------------------------------------------------------------------
 Grouped by category:
 --------------------------------------------------------------------------------
-category failed (4 modules)
-    scipy.ndimage
-    scipy.sparse.linalg._dsolve
-    scipy.sparse.linalg._eigen.arpack
-    scipy.special
-category fatal error or timeout (14 modules)
-    scipy.fft
-    scipy.integrate._ivp
-    scipy.integrate
-    scipy.interpolate
-    scipy.io
-    scipy._lib
-    scipy.linalg
-    scipy.optimize
-    scipy.signal
-    scipy.sparse.linalg._isolve
-    scipy.sparse.linalg
-    scipy.sparse
-    scipy.spatial
-    scipy.stats
+category failed (5 modules)
+    scipy.interpolate.tests
+    scipy.ndimage.tests
+    scipy.sparse.linalg._dsolve.tests
+    scipy.sparse.linalg._eigen.arpack.tests
+    scipy.special.tests
+category fatal error or timeout (8 modules)
+    scipy.fft.tests
+    scipy.linalg.tests
+    scipy.signal.tests
+    scipy.sparse.linalg._isolve.tests
+    scipy.sparse.linalg.tests
+    scipy.sparse.tests
+    scipy.spatial.tests
+    scipy.stats.tests
 category passed (15 modules)
-    scipy._build_utils
-    scipy.cluster
-    scipy.constants
-    scipy.fftpack
-    scipy.fft._pocketfft
-    scipy.io.arff
-    scipy.io._harwell_boeing
-    scipy.io.matlab
-    scipy.misc
-    scipy.odr
-    scipy.optimize._trustregion_constr
-    scipy.sparse.csgraph
-    scipy.sparse.linalg._eigen.lobpcg
-    scipy.sparse.linalg._eigen
-    scipy.spatial.transform
+    scipy._build_utils.tests
+    scipy.cluster.tests
+    scipy.constants.tests
+    scipy.fftpack.tests
+    scipy.fft._pocketfft.tests
+    scipy.io.arff.tests
+    scipy.io._harwell_boeing.tests
+    scipy.io.matlab.tests
+    scipy.misc.tests
+    scipy.odr.tests
+    scipy.optimize._trustregion_constr.tests
+    scipy.sparse.csgraph.tests
+    scipy.sparse.linalg._eigen.lobpcg.tests
+    scipy.sparse.linalg._eigen.tests
+    scipy.spatial.transform.tests
+category pytest usage error (1 modules)
+    scipy.integrate._ivp.tests
+category tests collection error (4 modules)
+    scipy.integrate.tests
+    scipy.io.tests
+    scipy._lib.tests
+    scipy.optimize.tests
 ```
