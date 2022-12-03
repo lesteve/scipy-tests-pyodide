@@ -99,3 +99,13 @@ category tests collection error (4 modules)
     scipy._lib.tests
     scipy.optimize.tests
 ```
+
+### Similar scipy status found in the Pyodide issues
+
+- 16 June 2022 scipy summary:
+  https://github.com/pyodide/pyodide/issues/2727#issuecomment-1157866792
+
+- 16 June 2022 sparse is almost passing: 3 failures when using pytest filter
+  `not test_cornercase and not iterative and not test_exception`
+  https://github.com/pyodide/pyodide/pull/2728#issuecomment-1158010553
+
