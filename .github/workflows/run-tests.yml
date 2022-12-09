@@ -51,7 +51,7 @@ jobs:
       - name: install debug build
         run: |
           wget http://pyodide-cache.s3-website-us-east-1.amazonaws.com/scratch/pyodide-scipy-debug.tar.xz
-          tar pyodide-scipy-debug.tar.xz
+          tar xvf pyodide-scipy-debug.tar.xz
           cp dist/* node_modules/pyodide
 
       - name: Test
