@@ -48,6 +48,12 @@ jobs:
       - name: install Pyodide
         run: |
           npm install "pyodide@$PYODIDE_JS_VERSION"
+      - name: install debug build
+        run: |
+          wget http://pyodide-cache.s3-website-us-east-1.amazonaws.com/scratch/pyodide-scipy-debug.tar.xz
+          tar pyodide-scipy-debug.tar.xz
+          cp dist/* node_modules/pyodide
+
       - name: Test
         run: |
           python run-tests-by-module.py
