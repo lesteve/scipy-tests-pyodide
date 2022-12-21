@@ -8,39 +8,13 @@ import asyncio
 # This is the output of the command run from the scipy root folder:
 # find scipy -name tests | sort | perl -pe 's@/@.@g'
 test_submodules_str = """
-scipy._build_utils.tests
-scipy.cluster.tests
-scipy.constants.tests
-scipy.fftpack.tests
-scipy.fft._pocketfft.tests
-scipy.fft.tests
-scipy.integrate._ivp.tests
-scipy.integrate.tests
-scipy.interpolate.tests
-scipy.io.arff.tests
-scipy.io._harwell_boeing.tests
-scipy.io.matlab.tests
-scipy.io.tests
-scipy._lib.tests
-scipy.linalg.tests
-scipy.misc.tests
-scipy.ndimage.tests
-scipy.odr.tests
-scipy.optimize.tests
-scipy.optimize._trustregion_constr.tests
-scipy.signal.tests
-scipy.sparse.csgraph.tests
-scipy.sparse.linalg._dsolve.tests
-scipy.sparse.linalg._eigen.arpack.tests
-scipy.sparse.linalg._eigen.lobpcg.tests
-scipy.sparse.linalg._eigen.tests
-scipy.sparse.linalg._isolve.tests
-scipy.sparse.linalg.tests
-scipy.sparse.tests
-scipy.spatial.tests
-scipy.spatial.transform.tests
-scipy.special.tests
-scipy.stats.tests
+scipy.fft.tests.test_backend
+scipy.fft.tests.test_fft_function
+scipy.fft.tests.test_fftlog
+scipy.fft.tests.test_helper
+scipy.fft.tests.test_multithreading
+scipy.fft.tests.test_numpy
+scipy.fft.tests.test_real_transforms
 """
 
 test_submodules = test_submodules_str.split()
