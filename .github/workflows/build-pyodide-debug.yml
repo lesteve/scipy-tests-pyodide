@@ -59,6 +59,8 @@ jobs:
           cd pyodide
           git show --stat
           pip install -r requirements.txt
+          # Do not unvendor scipy tests since some have compiled extensions
+          perl -pi -e 's@build:@build:\n  unvendor-tests: false@' packages/scipy/meta.yaml
 
       - name: Build emsdk
         shell: bash -l {0}
