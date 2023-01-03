@@ -28,18 +28,21 @@ jobs:
             var fs = require("fs");
             const owner = "lesteve";
             const repo = "scipy-tests-pyodide";
-            cunt's artifacts_response = await github.rest.actions.listArtifactsForRepo({owner: owner, repo: repo});
+            console.log("start");
+            const artifacts_response = await github.rest.actions.listArtifactsForRepo({owner: owner, repo: repo});
             const artifacts = artifacts_response.data.artifacts;
-
+            console.log(artifacts);
             # assuming the first artifact is the most recent
             const most_recent_artifact = artifacts[0];
-
+            
             const response = await github.rest.actions.downloadArtifact({
                 owner: owner, repo: repo, artifact_id: most_recent_artifact.id, archive_format: "zip"});
 
+            console.log("after download");
             await fs.appendFile("pyodide-build.zip", Buffer.from(response.data), function (err) {
                 if (err) throw err;
             });
+
 
       - name: Unzip Pyodide debug build artifact
         run: |
