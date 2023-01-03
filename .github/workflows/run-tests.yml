@@ -53,10 +53,6 @@ jobs:
           unzip pyodide-build.zip -d dist
           ls -ltrh dist
 
-      - name: Double-check
-        run: |
-          ls -ltrh dist
-
       - name: set up python
         id: setup-python
         uses: actions/setup-python@v4
