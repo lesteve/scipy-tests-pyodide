@@ -31,7 +31,9 @@ jobs:
             const repo = "scipy-tests-pyodide";
             console.log("start");
             const artifacts_response = await github.rest.actions.listArtifactsForRepo({owner: owner, repo: repo});
-            console.log(artifacts_response);
+            artifacts = artifacts_response.data.artifacts;
+            console.log(artifacts);
+
 
       - name: Unzip Pyodide debug build artifact
         run: |
