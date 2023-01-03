@@ -8,8 +8,6 @@ name: build-pyodide-debug
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
   # daily scheduled build at 1am
   schedule:
     - cron: "0 1 * * *"
@@ -58,6 +56,7 @@ jobs:
         shell: bash -l {0}
         run: |
           git clone https://github.com/pyodide/pyodide
+          git show --stat
           pip install -r pyodide/requirements.txt
 
       - name: Build emsdk
