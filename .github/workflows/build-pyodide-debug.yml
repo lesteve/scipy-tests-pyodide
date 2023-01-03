@@ -59,9 +59,6 @@ jobs:
         run: |
           git clone https://github.com/pyodide/pyodide
           pip install -r pyodide/requirements.txt
-          # Temporary hack to get scipy to build
-          perl -pi -e 's@"-ffixed-form"@"-ffixed-form", "-fallow-argument-mismatch"@' \
-              pyodide/pyodide-build/pyodide_build/pywasmcross.py
 
       - name: Build emsdk
         shell: bash -l {0}
@@ -114,4 +111,4 @@ jobs:
         with:
           name: build
           path: ./pyodide/dist/
-          retention-days: 60
+          retention-days: 15
