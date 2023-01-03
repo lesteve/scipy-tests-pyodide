@@ -6,41 +6,26 @@ import asyncio
 
 
 # This is the output of the command run from the scipy root folder:
-# find scipy -name tests | sort | perl -pe 's@/@.@g'
+# find scipy/signal/tests -name 'test_*' | sort | perl -pe 's@/@.@g' | perl -pe 's@\.py$@@g'
 test_submodules_str = """
-scipy._build_utils.tests
-scipy.cluster.tests
-scipy.constants.tests
-scipy.fftpack.tests
-scipy.fft._pocketfft.tests
-scipy.fft.tests
-scipy.integrate._ivp.tests
-scipy.integrate.tests
-scipy.interpolate.tests
-scipy.io.arff.tests
-scipy.io._harwell_boeing.tests
-scipy.io.matlab.tests
-scipy.io.tests
-scipy._lib.tests
-scipy.linalg.tests
-scipy.misc.tests
-scipy.ndimage.tests
-scipy.odr.tests
-scipy.optimize.tests
-scipy.optimize._trustregion_constr.tests
-scipy.signal.tests
-scipy.sparse.csgraph.tests
-scipy.sparse.linalg._dsolve.tests
-scipy.sparse.linalg._eigen.arpack.tests
-scipy.sparse.linalg._eigen.lobpcg.tests
-scipy.sparse.linalg._eigen.tests
-scipy.sparse.linalg._isolve.tests
-scipy.sparse.linalg.tests
-scipy.sparse.tests
-scipy.spatial.tests
-scipy.spatial.transform.tests
-scipy.special.tests
-scipy.stats.tests
+scipy.signal.tests.test_array_tools
+scipy.signal.tests.test_bsplines
+scipy.signal.tests.test_cont2discrete
+scipy.signal.tests.test_czt
+scipy.signal.tests.test_dltisys
+scipy.signal.tests.test_filter_design
+scipy.signal.tests.test_fir_filter_design
+scipy.signal.tests.test_ltisys
+scipy.signal.tests.test_max_len_seq
+scipy.signal.tests.test_peak_finding
+scipy.signal.tests.test_result_type
+scipy.signal.tests.test_savitzky_golay
+scipy.signal.tests.test_signaltools
+scipy.signal.tests.test_spectral
+scipy.signal.tests.test_upfirdn
+scipy.signal.tests.test_waveforms
+scipy.signal.tests.test_wavelets
+scipy.signal.tests.test_windows
 """
 
 test_submodules = test_submodules_str.split()
