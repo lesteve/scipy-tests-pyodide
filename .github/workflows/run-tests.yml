@@ -25,13 +25,20 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const artifacts_response = await github.rest.actions.listArtifactsForRepo(
-                {owner: "lesteve", repo: "scipy-tests-pyodide"});
+            const owner = "lesteve";
+            const repo = "scipy-tests-pyodide";
+            cunt's artifacts_response = await github.rest.actions.listArtifactsForRepo({owner: owner, repo: repo});
             const artifacts = artifacts_response.data.artifacts;
 
-            for (const artifact of artifacts) {
-                console.log(artifact);
-            }
+            # assuming the first artifact is the most recent
+            const most_recent_artifact = artifacts[0];
+
+            const response = await github.rest.actions.downloadArtifact({
+                owner: owner, repo: repo, artifact_id: most_recent_artifact.id, archive_format: "zip"});
+
+            await fs.appendFile("artifact.zip", Buffer.from(response.data), function (err) {
+                if (err) throw err;
+            });
 
       - name: Checkout
         uses: actions/checkout@v3
