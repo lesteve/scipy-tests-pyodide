@@ -6,88 +6,43 @@ import asyncio
 
 
 # This is the output of the command run from the scipy root folder:
-# find scipy -name tests | sort | perl -pe 's@/@.@g'
+# find scipy/linalg -name 'test_*' | sort | perl -pe 's@/@.@g' | perl -pe 's@\.py$@@g'
 test_submodules_str = """
-scipy._build_utils.tests
-scipy.cluster.tests
-scipy.constants.tests
-scipy.fftpack.tests
-scipy.fft._pocketfft.tests
-scipy.fft.tests
-scipy.integrate._ivp.tests
-scipy.integrate.tests
-scipy.interpolate.tests
-scipy.io.arff.tests
-scipy.io._harwell_boeing.tests
-scipy.io.matlab.tests
-scipy.io.tests
-scipy._lib.tests
-scipy.linalg.tests
-scipy.misc.tests
-scipy.ndimage.tests
-scipy.odr.tests
-scipy.optimize.tests
-scipy.optimize._trustregion_constr.tests
-scipy.signal.tests
-scipy.sparse.csgraph.tests
-scipy.sparse.linalg._dsolve.tests
-scipy.sparse.linalg._eigen.arpack.tests
-scipy.sparse.linalg._eigen.lobpcg.tests
-scipy.sparse.linalg._eigen.tests
-scipy.sparse.linalg._isolve.tests
-scipy.sparse.linalg.tests
-scipy.sparse.tests
-scipy.spatial.tests
-scipy.spatial.transform.tests
-scipy.special.tests
-scipy.stats.tests
+scipy.linalg.tests.test_basic
+scipy.linalg.tests.test_blas
+scipy.linalg.tests.test_cython_blas
+scipy.linalg.tests.test_cythonized_array_utils
+scipy.linalg.tests.test_cython_lapack
+scipy.linalg.tests.test_decomp_cholesky
+scipy.linalg.tests.test_decomp_cossin
+scipy.linalg.tests.test_decomp_ldl
+scipy.linalg.tests.test_decomp_polar
+scipy.linalg.tests.test_decomp
+scipy.linalg.tests.test_decomp_update
+scipy.linalg.tests.test_fblas
+scipy.linalg.tests.test_interpolative
+scipy.linalg.tests.test_lapack
+scipy.linalg.tests.test_matfuncs
+scipy.linalg.tests.test_matmul_toeplitz
+scipy.linalg.tests.test_misc
+scipy.linalg.tests.test_procrustes
+scipy.linalg.tests.test_sketches
+scipy.linalg.tests.test_solvers
+scipy.linalg.tests.test_solve_toeplitz
+scipy.linalg.tests.test_special_matrices
 """
 
 test_submodules = test_submodules_str.split()
 
 expected_test_results_by_category = {
     "failed": [
-        "scipy.interpolate.tests",
-        "scipy.ndimage.tests",
-        "scipy.sparse.linalg._dsolve.tests",
-        "scipy.sparse.linalg._eigen.arpack.tests",
-        "scipy.special.tests",
     ],
     "fatal error or timeout": [
-        "scipy.fft.tests",
-        "scipy.linalg.tests",
-        "scipy.signal.tests",
-        "scipy.sparse.linalg._isolve.tests",
-        "scipy.sparse.linalg.tests",
-        "scipy.sparse.tests",
-        "scipy.spatial.tests",
-        "scipy.stats.tests",
     ],
-    "passed": [
-        "scipy._build_utils.tests",
-        "scipy.cluster.tests",
-        "scipy.constants.tests",
-        "scipy.fftpack.tests",
-        "scipy.fft._pocketfft.tests",
-        "scipy.io.arff.tests",
-        "scipy.io._harwell_boeing.tests",
-        "scipy.io.matlab.tests",
-        "scipy.misc.tests",
-        "scipy.odr.tests",
-        "scipy.optimize._trustregion_constr.tests",
-        "scipy.sparse.csgraph.tests",
-        "scipy.sparse.linalg._eigen.lobpcg.tests",
-        "scipy.sparse.linalg._eigen.tests",
-        "scipy.spatial.transform.tests",
-    ],
+    "passed": test_submodules,
     "pytest usage error": [
-        "scipy.integrate._ivp.tests",
     ],
     "tests collection error": [
-        "scipy.integrate.tests",
-        "scipy.io.tests",
-        "scipy._lib.tests",
-        "scipy.optimize.tests",
     ],
 }
 
