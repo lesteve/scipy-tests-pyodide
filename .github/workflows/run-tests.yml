@@ -25,11 +25,12 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            for await (const response of github.paginate.iterator(
-                github.rest.actions.listArtifactsForRepo({owner: "lesteve", repo: "scipy-tests-pyodide"))) {
-                for (const artifact of response.data) {
-                    console.log(artifact);
-                }
+            const artifacts_response = await github.rest.actions.listArtifactsForRepo(
+                {owner: "lesteve", repo: "scipy-tests-pyodide"});
+            const artifacts = artifacts_response.data.artifacts;
+
+            for (const artifact of artifacts) {
+                console.log(artifact);
             }
 
       - name: Checkout
