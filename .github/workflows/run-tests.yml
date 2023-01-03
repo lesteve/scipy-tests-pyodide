@@ -34,6 +34,12 @@ jobs:
             artifacts = artifacts_response.data.artifacts;
             console.log(artifacts);
 
+            const most_recent_artifact = artifacts[0];
+            
+            const response = await github.rest.actions.downloadArtifact({
+                owner: owner, repo: repo, artifact_id: most_recent_artifact.id, archive_format: "zip"});
+
+            console.log("after download");
 
       - name: Unzip Pyodide debug build artifact
         run: |
