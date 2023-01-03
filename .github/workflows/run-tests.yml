@@ -21,10 +21,22 @@ jobs:
       NODE_VERSION: 18
       EMSCRIPTEN_VERSION: 3.1.24
     steps:
+      - name: Download latest Pyodide debug build
+        uses: actions/github-script@v6
+        with:
+          script: |
+            for await (const response of github.paginate.iterator(
+                       github.rest.actions.listArtifactsForRepo("lesteve", "scipy-tests-pyodide")) {
+                for (const artifact of response.data) {
+                    console.log(artifact);
+                }
+            }
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
 
       - name: set up python
         id: setup-python
