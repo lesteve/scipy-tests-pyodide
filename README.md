@@ -14,7 +14,7 @@ Pyodide fatal error investigation:
 - `scipy.linalg` https://github.com/lesteve/scipy-tests-pyodide/pull/2
 - `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
 - `scipy.sparse` https://github.com/lesteve/scipy-tests-pyodide/issues/3
-- `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6
+- `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6. Only 4 test failures due to tests creating threads.
 - `scipy.stats` https://github.com/lesteve/scipy-tests-pyodide/pull/4
 
 Some tests need built extension, so scipy-tests is not enough. These show up as
