@@ -87,7 +87,7 @@ async function main() {
     await pyodide.runPythonAsync(`
        import micropip
 
-       micropip.install(['scipy', 'scipy-tests'])
+       micropip.install(['scipy'])
     `);
 
     await pyodide.runPythonAsync(`import scipy; print(f"scipy version: {scipy.__version__}")`);
