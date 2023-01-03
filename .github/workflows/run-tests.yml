@@ -26,7 +26,7 @@ jobs:
         with:
           script: |
             for await (const response of github.paginate.iterator(
-                       github.rest.actions.listArtifactsForRepo("lesteve", "scipy-tests-pyodide"))) {
+                github.rest.actions.listArtifactsForRepo({owner: "lesteve", repo: "scipy-tests-pyodide"))) {
                 for (const artifact of response.data) {
                     console.log(artifact);
                 }
