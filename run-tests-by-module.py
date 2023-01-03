@@ -47,20 +47,22 @@ test_submodules = test_submodules_str.split()
 
 expected_test_results_by_category = {
     "failed": [
+        "scipy.fft.tests",
         "scipy.interpolate.tests",
+        "scipy._lib.tests",
         "scipy.ndimage.tests",
+        "scipy.signal.tests",
         "scipy.sparse.linalg._dsolve.tests",
         "scipy.sparse.linalg._eigen.arpack.tests",
+        "scipy.sparse.tests",
+        "scipy.spatial.tests",
         "scipy.special.tests",
     ],
     "fatal error or timeout": [
-        "scipy.fft.tests",
         "scipy.linalg.tests",
-        "scipy.signal.tests",
+        "scipy.optimize.tests",
         "scipy.sparse.linalg._isolve.tests",
         "scipy.sparse.linalg.tests",
-        "scipy.sparse.tests",
-        "scipy.spatial.tests",
         "scipy.stats.tests",
     ],
     "passed": [
@@ -86,8 +88,6 @@ expected_test_results_by_category = {
     "tests collection error": [
         "scipy.integrate.tests",
         "scipy.io.tests",
-        "scipy._lib.tests",
-        "scipy.optimize.tests",
     ],
 }
 

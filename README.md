@@ -14,7 +14,8 @@ Pyodide fatal error investigation:
 - `scipy.linalg` https://github.com/lesteve/scipy-tests-pyodide/pull/2
 - `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
 - `scipy.sparse` https://github.com/lesteve/scipy-tests-pyodide/issues/3
-- `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6. Only 4 test failures due to tests creating threads.
+- `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6.
+  Only 4 test failures due to tests creating threads.
 - `scipy.stats` https://github.com/lesteve/scipy-tests-pyodide/pull/4
 
 Some tests need built extension, so scipy-tests is not enough. These show up as
@@ -34,7 +35,7 @@ scipy.cluster.tests passed (exit code 0)
 scipy.constants.tests passed (exit code 0)
 scipy.fftpack.tests passed (exit code 0)
 scipy.fft._pocketfft.tests passed (exit code 0)
-scipy.fft.tests fatal error or timeout (exit code 7)
+scipy.fft.tests failed (exit code 1)
 scipy.integrate._ivp.tests pytest usage error (exit code 4)
 scipy.integrate.tests tests collection error (exit code 2)
 scipy.interpolate.tests failed (exit code 1)
@@ -42,44 +43,46 @@ scipy.io.arff.tests passed (exit code 0)
 scipy.io._harwell_boeing.tests passed (exit code 0)
 scipy.io.matlab.tests passed (exit code 0)
 scipy.io.tests tests collection error (exit code 2)
-scipy._lib.tests tests collection error (exit code 2)
-scipy.linalg.tests fatal error or timeout (exit code 7)
+scipy._lib.tests failed (exit code 1)
+scipy.linalg.tests fatal error or timeout (exit code 66)
 scipy.misc.tests passed (exit code 0)
 scipy.ndimage.tests failed (exit code 1)
 scipy.odr.tests passed (exit code 0)
-scipy.optimize.tests tests collection error (exit code 2)
+scipy.optimize.tests fatal error or timeout (exit code None)
 scipy.optimize._trustregion_constr.tests passed (exit code 0)
-scipy.signal.tests fatal error or timeout (exit code 7)
+scipy.signal.tests failed (exit code 1)
 scipy.sparse.csgraph.tests passed (exit code 0)
 scipy.sparse.linalg._dsolve.tests failed (exit code 1)
 scipy.sparse.linalg._eigen.arpack.tests failed (exit code 1)
 scipy.sparse.linalg._eigen.lobpcg.tests passed (exit code 0)
 scipy.sparse.linalg._eigen.tests passed (exit code 0)
-scipy.sparse.linalg._isolve.tests fatal error or timeout (exit code 7)
-scipy.sparse.linalg.tests fatal error or timeout (exit code 7)
-scipy.sparse.tests fatal error or timeout (exit code 7)
-scipy.spatial.tests fatal error or timeout (exit code 7)
+scipy.sparse.linalg._isolve.tests fatal error or timeout (exit code 66)
+scipy.sparse.linalg.tests fatal error or timeout (exit code 66)
+scipy.sparse.tests failed (exit code 1)
+scipy.spatial.tests failed (exit code 1)
 scipy.spatial.transform.tests passed (exit code 0)
 scipy.special.tests failed (exit code 1)
-scipy.stats.tests fatal error or timeout (exit code 7)
+scipy.stats.tests fatal error or timeout (exit code 66)
 
 --------------------------------------------------------------------------------
 Grouped by category:
 --------------------------------------------------------------------------------
-category failed (5 modules)
+category failed (10 modules)
+    scipy.fft.tests
     scipy.interpolate.tests
+    scipy._lib.tests
     scipy.ndimage.tests
+    scipy.signal.tests
     scipy.sparse.linalg._dsolve.tests
     scipy.sparse.linalg._eigen.arpack.tests
-    scipy.special.tests
-category fatal error or timeout (8 modules)
-    scipy.fft.tests
-    scipy.linalg.tests
-    scipy.signal.tests
-    scipy.sparse.linalg._isolve.tests
-    scipy.sparse.linalg.tests
     scipy.sparse.tests
     scipy.spatial.tests
+    scipy.special.tests
+category fatal error or timeout (5 modules)
+    scipy.linalg.tests
+    scipy.optimize.tests
+    scipy.sparse.linalg._isolve.tests
+    scipy.sparse.linalg.tests
     scipy.stats.tests
 category passed (15 modules)
     scipy._build_utils.tests
@@ -99,11 +102,9 @@ category passed (15 modules)
     scipy.spatial.transform.tests
 category pytest usage error (1 modules)
     scipy.integrate._ivp.tests
-category tests collection error (4 modules)
+category tests collection error (2 modules)
     scipy.integrate.tests
     scipy.io.tests
-    scipy._lib.tests
-    scipy.optimize.tests
 ```
 
 ### Similar scipy status found in the Pyodide issues
