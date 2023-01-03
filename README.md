@@ -10,7 +10,7 @@ python run-tests-by-modules.py
 # Manually curated list of issues
 
 Pyodide fatal error investigation:
-- `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7
+- `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7. Test failures use threads or multiprocessing.
 - `scipy.linalg` https://github.com/lesteve/scipy-tests-pyodide/pull/2
 - `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
 - `scipy.sparse` https://github.com/lesteve/scipy-tests-pyodide/issues/3
