@@ -25,6 +25,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            var fs = require("fs");
             const owner = "lesteve";
             const repo = "scipy-tests-pyodide";
             cunt's artifacts_response = await github.rest.actions.listArtifactsForRepo({owner: owner, repo: repo});
@@ -36,9 +37,14 @@ jobs:
             const response = await github.rest.actions.downloadArtifact({
                 owner: owner, repo: repo, artifact_id: most_recent_artifact.id, archive_format: "zip"});
 
-            await fs.appendFile("artifact.zip", Buffer.from(response.data), function (err) {
+            await fs.appendFile("pyodide-build.zip", Buffer.from(response.data), function (err) {
                 if (err) throw err;
             });
+
+      - name: Unzip Pyodide debug build artifact
+        run: |
+          unzip pyodide-build.zip -d dist
+          ls -ltrh dist
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -68,10 +74,9 @@ jobs:
       - name: install Pyodide
         run: |
           npm install "pyodide@$PYODIDE_JS_VERSION"
+
       - name: install debug build
         run: |
-          wget http://pyodide-cache.s3-website-us-east-1.amazonaws.com/scratch/pyodide-scipy-debug.tar.xz
-          tar xvf pyodide-scipy-debug.tar.xz
           cp dist/* node_modules/pyodide
 
       - name: Test
