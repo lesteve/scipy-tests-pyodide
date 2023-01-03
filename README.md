@@ -9,7 +9,13 @@ python run-tests-by-modules.py
 
 # Manually curated list of issues
 
-TODO: try to reduce fatal error in module tests to smaller snippets.
+Pyodide fatal error investigation:
+- `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7
+- `scipy.linalg` https://github.com/lesteve/scipy-tests-pyodide/pull/2
+- `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
+- `scipy.sparse` https://github.com/lesteve/scipy-tests-pyodide/issues/3
+- `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6
+- `scipy.stats` https://github.com/lesteve/scipy-tests-pyodide/pull/4
 
 Some tests need built extension, so scipy-tests is not enough. These show up as
 tests collection error below.
