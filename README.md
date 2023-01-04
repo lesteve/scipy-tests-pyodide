@@ -9,22 +9,38 @@ python run-tests-by-modules.py
 
 # Manually curated list of issues
 
-Pyodide fatal error investigation:
-- `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7. Test failures use threads or multiprocessing.
+## Pyodide fatal error investigation:
+
 - `scipy.linalg` https://github.com/lesteve/scipy-tests-pyodide/pull/2
-- `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
 - `scipy.sparse` https://github.com/lesteve/scipy-tests-pyodide/issues/3
+- `scipy.stats` https://github.com/lesteve/scipy-tests-pyodide/pull/4
+- `scipy.optimize.tests`
+
+## Pyodide failures investigation
+
+- `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7. Test
+  failures use threads or multiprocessing.
+- `scipy.interpolate.tests`
+- `scipy._lib.tests`
+- `scipy.ndimage.tests`
+- `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
+- `scipy.sparse.linalg._dsolve.tests`
+- `scipy.sparse.linalg._eigen.arpack.tests`
 - `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6.
   Only 4 test failures due to tests creating threads.
-- `scipy.stats` https://github.com/lesteve/scipy-tests-pyodide/pull/4
+- `scipy.special.tests`
 
-Some tests need built extension, so scipy-tests is not enough. These show up as
-tests collection error below.
+## Other issues
+
+Some tests need built extension, that are not built for now in pyodide (see
+this
+[patch](https://github.com/pyodide/pyodide/blob/main/packages/scipy/patches/0010-skip-fortran-fails-to-link.patch)
+for more details). These show up as tests collection error below.
 
 `scipy.integrate._ivp.tests` shows up a pytest usage error because there is no
 `__init__.py` for this module.
 
-Results summary by modules:
+## Results summary by modules
 
 ```
 ================================================================================
