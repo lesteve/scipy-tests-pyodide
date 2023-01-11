@@ -14,7 +14,7 @@ python run-tests-by-modules.py
 - `scipy.linalg` https://github.com/lesteve/scipy-tests-pyodide/pull/2
 - `scipy.sparse` https://github.com/lesteve/scipy-tests-pyodide/issues/3
 - `scipy.stats` https://github.com/lesteve/scipy-tests-pyodide/pull/4
-- `scipy.optimize.tests`
+- `scipy.optimize.tests` https://github.com/lesteve/scipy-tests-pyodide/issues/12
 
 ## Pyodide failures investigation
 
