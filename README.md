@@ -20,15 +20,15 @@ python run-tests-by-modules.py
 
 - `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7. Test
   failures use threads or multiprocessing.
-- `scipy.interpolate.tests`
-- `scipy._lib.tests`
-- `scipy.ndimage.tests`
+- `scipy.interpolate.tests` https://github.com/lesteve/scipy-tests-pyodide/issues/13
+- `scipy._lib.tests` all tests uses multiprocessing, threads or some fork call https://github.com/lesteve/scipy-tests-pyodide/issues/14
+- `scipy.ndimage.tests` test failures use threads
 - `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
-- `scipy.sparse.linalg._dsolve.tests`
-- `scipy.sparse.linalg._eigen.arpack.tests`
+- `scipy.sparse.linalg._dsolve.tests` test failures use threads
+- `scipy.sparse.linalg._eigen.arpack.tests` test failures use threads
 - `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6.
   Only 4 test failures due to tests creating threads.
-- `scipy.special.tests`
+- `scipy.special.tests` https://github.com/lesteve/scipy-tests-pyodide/issues/15
 
 ## Other issues
 
