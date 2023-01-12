@@ -170,7 +170,10 @@ def execute_command_with_timeout(command_list, timeout_without_output):
 
 
 def run_tests_for_module(module_str):
-    timeout_without_output = 60
+    # some tests in scipy.interpolate e.g.
+    # test_rbfinterp.py::TestRBFInterpolatorNeighborsInf::test_chunking can
+    # take more than 60s to run
+    timeout_without_output = 120 if 'interpolate' in module_str else 60
     command_str = f"node --experimental-fetch scipy-pytest.js -v {module_str}"
     command_list = shlex.split(command_str)
     command_result = execute_command_with_timeout(
