@@ -27,13 +27,6 @@ jobs:
       CCACHE_DIR: /tmp/ccache
 
     steps:
-      - name: Cache ccache output
-        uses: actions/cache@v2
-        with:
-          path: |
-            /tmp/ccache
-          key: ${{ hashFiles('pyodide/Makefile.envs') }}-v20211025-
-
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: pyodide-env
@@ -61,6 +54,13 @@ jobs:
           pip install -r requirements.txt
           # Do not unvendor scipy tests since some have compiled extensions
           perl -pi -e 's@build:@build:\n  unvendor-tests: false@' packages/scipy/meta.yaml
+
+      - name: Cache ccache output
+        uses: actions/cache@v2
+        with:
+          path: |
+            /tmp/ccache
+          key: ${{ hashFiles('pyodide/Makefile.envs') }}-v20211025-
 
       - name: Build emsdk
         shell: bash -l {0}
