@@ -112,7 +112,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: ./pyodide/dist
-          path: ./pyodide/cpython/installs
-          path: ./pyodide/packages/.artifacts
+          path: |
+            ./pyodide/dist
+            ./pyodide/cpython/installs
+            ./pyodide/packages/.artifacts
           retention-days: 15
