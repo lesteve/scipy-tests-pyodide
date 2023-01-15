@@ -26,6 +26,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: clone pyodide repo
+        shell: bash -l {0}
+        run: |
+          git clone https://github.com/pyodide/pyodide --depth 1
+          cd pyodide
+          git log -1
+          pip install -e ./pyodide-build
+
       - name: Download latest Pyodide debug build
         uses: actions/github-script@v6
         with:
@@ -50,22 +64,15 @@ jobs:
 
       - name: Unzip Pyodide debug build artifact
         run: |
-          unzip pyodide-build.zip -d dist
-          ls -ltrh dist
-
-      - name: set up python
-        id: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          unzip pyodide-build.zip -d pyodide
+          ls -ltrh pyodide/dist
+          # Put back lost permission in artifact
+          chmod u+x pyodide/dist/python
 
       - uses: mymindstorm/setup-emsdk@v11
         with:
           version: ${{ env.EMSCRIPTEN_VERSION }}
           actions-cache-folder: emsdk-cache
-
-      - name: Install pyodide-build
-        run: pip install pyodide-build==$PYODIDE_VERSION
 
       - name: set up node
         uses: actions/setup-node@v3
@@ -78,7 +85,7 @@ jobs:
 
       - name: install debug build
         run: |
-          cp -r dist/* node_modules/pyodide
+          cp -r pyodide/dist/* node_modules/pyodide
 
       - name: Test
         run: |
