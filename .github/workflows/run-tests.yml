@@ -78,7 +78,7 @@ jobs:
 
       - name: install debug build
         run: |
-          cp dist/* node_modules/pyodide
+          cp -r dist/* node_modules/pyodide
 
       - name: Test
         run: |
