@@ -115,4 +115,6 @@ jobs:
           path: |
             ./pyodide/dist
             ./pyodide/cpython/installs/python-3.10.2/sysconfigdata
+            ./pyodide/cpython/installs/python-3.10.2/include
+
           retention-days: 15
