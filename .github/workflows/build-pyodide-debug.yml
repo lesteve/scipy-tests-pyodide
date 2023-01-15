@@ -114,6 +114,5 @@ jobs:
           name: build
           path: |
             ./pyodide/dist
-            ./pyodide/cpython/installs
-            ./pyodide/packages/.artifacts
+            ./pyodide/cpython/installs/python-3.10.2/sysconfigdata
           retention-days: 15
