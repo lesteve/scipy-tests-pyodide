@@ -8,6 +8,8 @@ name: build-pyodide-debug
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   # daily scheduled build at 1am
   schedule:
     - cron: "0 1 * * *"
@@ -24,9 +26,13 @@ jobs:
       EMSDK_NUM_CORES: 3
       EMCC_CORES: 3
       PYODIDE_JOBS: 3
+      PYTHON_VERSION: '3.10.7'
       CCACHE_DIR: /tmp/ccache
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: pyodide-env
@@ -50,10 +56,11 @@ jobs:
         run: |
           git clone https://github.com/pyodide/pyodide
           cd pyodide
-          git show --stat
+          git log -1
           pip install -r requirements.txt
-          # Do not unvendor scipy tests since some have compiled extensions
-          perl -pi -e 's@build:@build:\n  unvendor-tests: false@' packages/scipy/meta.yaml
+
+          python ../update-packages-meta.py
+          git diff
 
       - name: Cache ccache output
         uses: actions/cache@v2
