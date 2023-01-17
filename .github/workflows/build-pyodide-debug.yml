@@ -59,8 +59,8 @@ jobs:
           git log -1
           pip install -r requirements.txt
 
-          ls -ltrh ..
           python ../update-packages-meta.py
+          git diff
 
       - name: Cache ccache output
         uses: actions/cache@v2
