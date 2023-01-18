@@ -209,7 +209,7 @@ def print_summary(module_results):
 
     print()
     print("-" * 80)
-    print("Grouped by category:")
+    print("Grouped by category")
     print("-" * 80)
 
     def fun(each):
@@ -238,7 +238,11 @@ def print_summary(module_results):
 
     if mismatches:
         mismatches_str = "\n".join(mismatches)
-        error = f"Some modules had unexpected test results:\n{mismatches_str}"
+        print("-" * 80)
+        print("Unexpected test results")
+        print("-" * 80)
+        print(mismatches_str)
+
         return 1
 
     print("Test results matched expected ones")
