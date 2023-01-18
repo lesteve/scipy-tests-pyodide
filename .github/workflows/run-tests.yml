@@ -39,9 +39,6 @@ jobs:
           cd pyodide
           git log -1
           pip install -e ./pyodide-build
-          # Not sure why, but this is necessary to build the wheel otherwise
-          # somehow scipy is not installed in the temporary virtualenv
-          rm -rf packages
 
       - name: Download latest Pyodide debug build
         uses: actions/github-script@v6
