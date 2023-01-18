@@ -1,7 +1,6 @@
 import shlex
 import sys
 import itertools
-import unittest
 import asyncio
 
 
