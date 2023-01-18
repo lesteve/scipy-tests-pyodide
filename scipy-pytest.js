@@ -27,6 +27,7 @@ async function main() {
     // somehow this import is needed not sure why import pytest is not enough...
     await pyodide.runPythonAsync("micropip.install('tomli')");
     let pytest = pyodide.pyimport("pytest");
+    let args = process.argv.slice(2);
     console.log('pytest args:', args);
     exit_code = pytest.main(pyodide.toPy(args));
   } catch (e) {
