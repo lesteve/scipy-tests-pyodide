@@ -57,9 +57,6 @@ jobs:
           git log -1
           pip install -r requirements.txt
 
-          python ../update-packages-meta.py
-          git diff
-
       - name: Cache ccache output
         uses: actions/cache@v2
         with:
@@ -94,9 +91,28 @@ jobs:
         shell: bash -l {0}
         run: |
           cd pyodide
+
+          # Update scipy meta.yaml to unvendor tests
+          python ../update-packages-meta.py scipy
+
           # This is necessary to use the ccache from emsdk
           source pyodide_env.sh
           ccache -z
+          EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES="core,numpy,scipy" make
+          ccache -s
+
+      - name: build scikit-learn
+        shell: bash -l {0}
+        run: |
+          cd pyodide
+
+          # Update scikit-learn meta.yaml to use scikit-learn dev
+          python ../update-packages-meta.py scikit-learn
+
+          # This is necessary to use the ccache from emsdk
+          source pyodide_env.sh
+          ccache -z
+          # Need to use all packages so they are in repodata.json I think
           EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES="core,numpy,scipy,scikit-learn" make
           ccache -s
 
