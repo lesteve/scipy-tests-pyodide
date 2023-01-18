@@ -3,47 +3,9 @@ import sys
 import itertools
 import asyncio
 
-
-# This is the output of the command run from the scipy root folder:
-# find scipy -name tests | sort | perl -pe 's@/@.@g'
-test_submodules_str = """
-scipy._build_utils.tests
-scipy.cluster.tests
-scipy.constants.tests
-scipy.fftpack.tests
-scipy.fft._pocketfft.tests
-scipy.fft.tests
-scipy.integrate._ivp.tests
-scipy.integrate.tests
-scipy.interpolate.tests
-scipy.io.arff.tests
-scipy.io._harwell_boeing.tests
-scipy.io.matlab.tests
-scipy.io.tests
-scipy._lib.tests
-scipy.linalg.tests
-scipy.misc.tests
-scipy.ndimage.tests
-scipy.odr.tests
-scipy.optimize.tests
-scipy.optimize._trustregion_constr.tests
-scipy.signal.tests
-scipy.sparse.csgraph.tests
-scipy.sparse.linalg._dsolve.tests
-scipy.sparse.linalg._eigen.arpack.tests
-scipy.sparse.linalg._eigen.lobpcg.tests
-scipy.sparse.linalg._eigen.tests
-scipy.sparse.linalg._isolve.tests
-scipy.sparse.linalg.tests
-scipy.sparse.tests
-scipy.spatial.tests
-scipy.spatial.transform.tests
-scipy.special.tests
-scipy.stats.tests
-"""
-
-test_submodules = test_submodules_str.split()
-
+# Test submodules are from the output of the command run from the scikit-learn
+# root folder:
+# find sklearn -name tests | sort | perl -pe 's@/@.@g'
 expected_test_results = {
     "scipy._build_utils.tests": ["passed"],
     "scipy.cluster.tests": ["passed"],
@@ -51,13 +13,13 @@ expected_test_results = {
     "scipy.fftpack.tests": ["passed"],
     "scipy.fft._pocketfft.tests": ["passed"],
     "scipy.fft.tests": ["failed"],
-    "scipy.integrate._ivp.tests": ["passed"],
-    "scipy.integrate.tests": ["passed"],
+    "scipy.integrate._ivp.tests": ["pytest usage error"],
+    "scipy.integrate.tests": ["tests collection error"],
     "scipy.interpolate.tests": ["failed"],
     "scipy.io.arff.tests": ["passed"],
     "scipy.io._harwell_boeing.tests": ["passed"],
     "scipy.io.matlab.tests": ["passed"],
-    "scipy.io.tests": ["passed"],
+    "scipy.io.tests": ["tests collection error"],
     "scipy._lib.tests": ["failed"],
     "scipy.linalg.tests": ["fatal error or timeout"],
     "scipy.misc.tests": ["passed"],
@@ -79,6 +41,8 @@ expected_test_results = {
     "scipy.special.tests": ["failed"],
     "scipy.stats.tests": ["fatal error or timeout"],
 }
+
+test_submodules = expected_test_results.keys()
 
 
 async def _read_stream(stream, cb, timeout_without_output):
@@ -237,6 +201,7 @@ def print_summary(module_results):
 
     if mismatches:
         mismatches_str = "\n".join(mismatches)
+        print()
         print("-" * 80)
         print("Unexpected test results")
         print("-" * 80)
@@ -257,6 +222,7 @@ def main():
         test_submodules = [custom_pytest_args]
 
     for module in test_submodules:
+        print()
         print("-" * 80, flush=True)
         print(module, flush=True)
         print("-" * 80, flush=True)
