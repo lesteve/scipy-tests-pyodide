@@ -45,7 +45,7 @@ scipy.stats.tests
 
 test_submodules = test_submodules_str.split()
 
-expected_tests_results = {
+expected_test_results = {
     "scipy._build_utils.tests": ["passed"],
     "scipy.cluster.tests": ["passed"],
     "scipy.constants.tests": ["passed"],
