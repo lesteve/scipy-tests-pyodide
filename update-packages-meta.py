@@ -36,7 +36,7 @@ def update_scikit_learn():
 
     url = (
         "https://github.com/scikit-learn/scikit-learn/"
-        f"archive/refs/heads/main.zip@{sha}"
+        f"archive/{sha}.zip"
     )
     r = requests.get(url)
     sha256 = hashlib.sha256(r.content).hexdigest()
