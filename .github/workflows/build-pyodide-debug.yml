@@ -22,7 +22,6 @@ concurrency:
 
 jobs:
   get-commit-message:
-    name: Get commit message
     runs-on: ubuntu-latest
     outputs:
       head-commit-message: ${{ steps.get_head_commit_message.outputs.head_commit_message }}
@@ -33,7 +32,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Print head git commit message
         id: get_head_commit_message
-        run: echo "::set-output name=head_commit_message::$(git show -s --format=%s)"
+        run: echo "head_commit_message=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
 
   build-pyodide-debug:
     runs-on: ubuntu-latest
