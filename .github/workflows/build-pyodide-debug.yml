@@ -3,11 +3,14 @@
 # also https://github.com/pyodide/pyodide/blob/main/.circleci/config.yml for
 # the debug tweaks
 
-name: build-pyodide-debug
+name: Build Pyodide debug
 
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+
   # daily scheduled build at 1am
   schedule:
     - cron: "0 1 * * *"
@@ -18,8 +21,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  get-commit-message:
+    runs-on: ubuntu-latest
+    outputs:
+      head-commit-message: ${{ steps.get_head_commit_message.outputs.head_commit_message }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "head_commit_message=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
+
   build-pyodide-debug:
     runs-on: ubuntu-latest
+    needs: get-commit-message
+    if: (github.event_name == 'push') || (contains(needs.get-commit-message.outputs.head-commit-message, '[build]'))
     env:
       EMSDK_NUM_CORES: 3
       EMCC_CORES: 3
@@ -87,33 +105,20 @@ jobs:
           make -C cpython
           ccache -s
 
-      - name: build Pyodide core + scipy
+      - name: build Pyodide up to scikit-learn
         shell: bash -l {0}
         run: |
           cd pyodide
 
           # Update scipy meta.yaml to unvendor tests
-          python ../update-packages-meta.py scipy
+          # Update scikit-learn meta.yaml to use scikit-learn dev and unvendor tests
+          python ../update-packages-meta.py
+          git diff
 
           # This is necessary to use the ccache from emsdk
           source pyodide_env.sh
           ccache -z
-          EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES="core,numpy,scipy" make
-          ccache -s
-
-      - name: build scikit-learn
-        shell: bash -l {0}
-        run: |
-          cd pyodide
-
-          # Update scikit-learn meta.yaml to use scikit-learn dev
-          python ../update-packages-meta.py scikit-learn
-
-          # This is necessary to use the ccache from emsdk
-          source pyodide_env.sh
-          ccache -z
-          # Need to use all packages so they are in repodata.json I think
-          EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES="core,numpy,scipy,scikit-learn" make
+          EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES="scikit-learn" make
           ccache -s
 
       - name: build Pyodide debug

@@ -1,4 +1,4 @@
-name: Test Emscripten/Pyodide build
+name: Scipy tests
 
 on:
   push:
