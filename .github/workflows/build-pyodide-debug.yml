@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   build-pyodide-debug:
-    # if: github.event_name == "push"
+    if: github.event_name == "push"
     runs-on: ubuntu-latest
     env:
       EMSDK_NUM_CORES: 3
