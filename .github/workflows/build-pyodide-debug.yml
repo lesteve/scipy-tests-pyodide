@@ -3,7 +3,7 @@
 # also https://github.com/pyodide/pyodide/blob/main/.circleci/config.yml for
 # the debug tweaks
 
-name: build-pyodide-debug
+name: Build Pyodide debug
 
 on:
   push:
@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build-pyodide-debug:
-    if: (github.event_name == "push") || (contains(github.event.head_commit.message, '[pyodide build]'))
+    # if: github.event_name == "push"
     runs-on: ubuntu-latest
     env:
       EMSDK_NUM_CORES: 3

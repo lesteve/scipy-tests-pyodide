@@ -24,19 +24,19 @@ def update_scikit_learn():
     )
     r = requests.get(last_commit_url)
     content = r.json()
-    sha = content["sha"]
+    commit_sha = content["sha"]
     commit_message = content["commit"]["message"]
-    date = content["commit"]["committer"]["date"]
+    commit_date = content["commit"]["committer"]["date"]
     print(
         f"got scikit-learn dev from:\n"
         f"message: {commit_message}\n"
-        f"commit:  {sha}\n"
-        f"date:    {date}"
+        f"commit:  {commit_sha}\n"
+        f"date:    {commit_date}"
     )
 
     url = (
         "https://github.com/scikit-learn/scikit-learn/"
-        f"archive/{sha}.zip"
+        f"archive/{commit_sha}.zip"
     )
     r = requests.get(url)
     sha256 = hashlib.sha256(r.content).hexdigest()
@@ -46,7 +46,7 @@ def update_scikit_learn():
 
     meta["source"]["url"] = url
     meta["source"]["sha256"] = sha256
-    meta["package"]["version"] = "1.3.0.dev"
+    meta["package"]["version"] = f"1.3.0.dev{commit_sha}"
     meta["build"]["unvendor-tests"] = False
     yaml.dump(meta, meta_path.open("w"))
 
