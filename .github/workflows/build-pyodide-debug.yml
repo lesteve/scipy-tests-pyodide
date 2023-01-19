@@ -19,6 +19,7 @@ concurrency:
 
 jobs:
   build-pyodide-debug:
+    if: {{ github.event_name == "push" || contains(github.event.head_commit.message, '[pyodide build]') }}
     runs-on: ubuntu-latest
     env:
       EMSDK_NUM_CORES: 3
@@ -87,33 +88,20 @@ jobs:
           make -C cpython
           ccache -s
 
-      - name: build Pyodide core + scipy
+      - name: build Pyodide up to scikit-learn
         shell: bash -l {0}
         run: |
           cd pyodide
 
           # Update scipy meta.yaml to unvendor tests
-          python ../update-packages-meta.py scipy
+          # Update scikit-learn meta.yaml to use scikit-learn dev and unvendor tests
+          python ../update-packages-meta.py
+          git diff
 
           # This is necessary to use the ccache from emsdk
           source pyodide_env.sh
           ccache -z
-          EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES="core,numpy,scipy" make
-          ccache -s
-
-      - name: build scikit-learn
-        shell: bash -l {0}
-        run: |
-          cd pyodide
-
-          # Update scikit-learn meta.yaml to use scikit-learn dev
-          python ../update-packages-meta.py scikit-learn
-
-          # This is necessary to use the ccache from emsdk
-          source pyodide_env.sh
-          ccache -z
-          # Need to use all packages so they are in repodata.json I think
-          EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES="core,numpy,scipy,scikit-learn" make
+          EXTRA_CFLAGS=-g2 EXTRA_LDFLAGS=-g2 PYODIDE_PACKAGES=scikit-learn" make
           ccache -s
 
       - name: build Pyodide debug

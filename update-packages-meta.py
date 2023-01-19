@@ -7,6 +7,7 @@ import sys
 yaml = ruamel.yaml.YAML()
 yaml.indent(mapping=2, sequence=4, offset=2)
 
+
 def update_scipy():
     # Unvendor scipy tests
     meta_path = Path("packages/scipy/meta.yaml")
@@ -14,9 +15,29 @@ def update_scipy():
     meta["build"]["unvendor-tests"] = False
     yaml.dump(meta, meta_path.open("w"))
 
+
 def update_scikit_learn():
-    # Use scikit-learn development version and unvendor tests
-    url = "https://github.com/scikit-learn/scikit-learn/archive/refs/heads/main.zip"
+    # get latest commit from scikit-learn repo
+    # curl https://api.github.com/repos/scikit-learn/scikit-learn/commits/main | jq '{message: .commit.message, sha: .sha}'
+    last_commit_url = (
+        "https://api.github.com/repos/scikit-learn/scikit-learn/commits/main"
+    )
+    r = requests.get(last_commit_url)
+    content = r.json()
+    sha = content["sha"]
+    commit_message = content["commit"]["message"]
+    date = content["commit"]["committer"]["date"]
+    print(
+        f"got scikit-learn dev from:\n"
+        f"message: {commit_message}\n"
+        f"commit:  {sha}\n"
+        f"date:    {date}"
+    )
+
+    url = (
+        "https://github.com/scikit-learn/scikit-learn/"
+        f"archive/refs/heads/main.zip@{sha}"
+    )
     r = requests.get(url)
     sha256 = hashlib.sha256(r.content).hexdigest()
 
@@ -31,20 +52,18 @@ def update_scikit_learn():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        raise ValueError(
-            f"Usage: {sys.argv[0]} package"
-        )
+    args = sys.argv[1:]
+    if not args:
+        args = ["scipy", "scikit-learn"]
 
     lookup = {"scipy": update_scipy, "scikit-learn": update_scikit_learn}
-    arg = sys.argv[1]
 
-    func = lookup.get(arg)
+    for arg in args:
+        func = lookup.get(arg)
 
-    if func is None:
-        allowed_values = list(lookup.keys())
-        raise ValueError(
-            f"Could not find package {func_name}. Allowed values are: {allowed_values}"
-        )
-
-    func()
+        if func is None:
+            allowed_values = list(lookup.keys())
+            raise ValueError(
+                f"Could not find package {func_name}. Allowed values are: {allowed_values}"
+            )
+        func()
