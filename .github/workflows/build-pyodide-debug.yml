@@ -8,6 +8,9 @@ name: Build Pyodide debug
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+
   # daily scheduled build at 1am
   schedule:
     - cron: "0 1 * * *"
