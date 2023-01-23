@@ -19,7 +19,6 @@ jobs:
       PYODIDE_JS_VERSION: '0.22.0'
       PYTHON_VERSION: '3.10.7'
       NODE_VERSION: 18
-      EMSCRIPTEN_VERSION: 3.1.29
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -68,11 +67,6 @@ jobs:
           ls -ltrh pyodide/dist
           # Put back lost permission in artifact
           chmod u+x pyodide/dist/python
-
-      - uses: mymindstorm/setup-emsdk@v11
-        with:
-          version: ${{ env.EMSCRIPTEN_VERSION }}
-          actions-cache-folder: emsdk-cache
 
       - name: set up node
         uses: actions/setup-node@v3
