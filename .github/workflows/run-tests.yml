@@ -25,20 +25,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: set up python
-        id: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: clone pyodide repo
-        shell: bash -l {0}
-        run: |
-          git clone https://github.com/pyodide/pyodide --depth 1
-          cd pyodide
-          git log -1
-          pip install -e ./pyodide-build
-
       - name: Download latest Pyodide debug build
         uses: actions/github-script@v6
         with:
