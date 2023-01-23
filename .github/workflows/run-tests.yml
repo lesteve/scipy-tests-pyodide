@@ -15,8 +15,6 @@ jobs:
   build-wasm-emscripten:
     runs-on: ubuntu-latest
     env:
-      PYODIDE_VERSION: '0.22.0'
-      PYODIDE_JS_VERSION: '0.22.0'
       PYTHON_VERSION: '3.10.7'
       NODE_VERSION: 18
     steps:
@@ -61,7 +59,7 @@ jobs:
 
       - name: install Pyodide
         run: |
-          npm install "pyodide@$PYODIDE_JS_VERSION"
+          npm install "pyodide"
 
       - name: install debug build
         run: |
