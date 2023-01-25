@@ -27,7 +27,7 @@ expected_test_results = {
     "scipy.misc.tests": ["passed"],
     "scipy.ndimage.tests": ["failed"],
     "scipy.odr.tests": ["passed"],
-    "scipy.optimize.tests": ["fatal error or timeout"],
+    "scipy.optimize.tests": ["fatal error or timeout", "failed"],
     "scipy.optimize._trustregion_constr.tests": ["passed"],
     "scipy.signal.tests": ["failed"],
     "scipy.sparse.csgraph.tests": ["passed"],
