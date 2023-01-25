@@ -15,7 +15,6 @@ jobs:
   build-wasm-emscripten:
     runs-on: ubuntu-latest
     env:
-      PYTHON_VERSION: '3.10.7'
       NODE_VERSION: 18
     steps:
       - name: Checkout
