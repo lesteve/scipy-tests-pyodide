@@ -23,6 +23,7 @@ def update_scikit_learn():
         "https://api.github.com/repos/scikit-learn/scikit-learn/commits/main"
     )
     r = requests.get(last_commit_url)
+    r.raise_for_status()
     content = r.json()
     commit_sha = content["sha"]
     commit_message = content["commit"]["message"]
