@@ -24,6 +24,8 @@ python run-tests-by-modules.py
 
 ## Expected failures due to Pyodide limitations
 
+Those tests are marked as xfail in `conftest.py`.
+
 - `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7. Test
   failures use threads or multiprocessing.
 - `scipy._lib.tests` all tests uses multiprocessing, threads or some fork call https://github.com/lesteve/scipy-tests-pyodide/issues/14
