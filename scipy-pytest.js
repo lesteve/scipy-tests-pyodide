@@ -11,7 +11,17 @@ async function main() {
 
     let mountDir = "/mnt";
     pyodide.FS.mkdir(mountDir);
-    pyodide.FS.mount(pyodide.FS.filesystems.NODEFS, { root: "." }, mountDir);
+      pyodide.FS.mount(pyodide.FS.filesystems.NODEFS, { root: "." }, mountDir);
+
+    // Copy conftest.py to current dir if it exists
+    await pyodide.runPythonAsync(`
+       import shutil
+       import os
+
+       conftest_filename = "/mnt/conftest.py"
+       if os.path.exists(conftest_filename):
+           shutil.copy(conftest_filename, ".")
+    `);
 
     await pyodide.loadPackage(["micropip"]);
     await pyodide.runPythonAsync(`
