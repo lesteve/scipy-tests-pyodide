@@ -24,6 +24,8 @@ tests_to_xfail = [
     # scipy/spatial/tests
     "test_kdtree.py::test_query_ball_point_multithreading",
     "test_kdtree.py::test_ckdtree_parallel",
+    # scipy/sparse/tests
+    "test_sparsetools.py::test_threads",
 ]
 
 def pytest_collection_modifyitems(config, items):

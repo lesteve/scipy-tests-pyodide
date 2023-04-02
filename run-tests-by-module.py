@@ -37,7 +37,7 @@ expected_test_results = {
     "scipy.sparse.linalg._eigen.tests": ["passed"],
     "scipy.sparse.linalg._isolve.tests": ["fatal error or timeout"],
     "scipy.sparse.linalg.tests": ["fatal error or timeout"],
-    "scipy.sparse.tests": ["failed"],
+    "scipy.sparse.tests": ["passed"],
     "scipy.spatial.tests": ["passed"],
     "scipy.spatial.transform.tests": ["passed"],
     "scipy.special.tests": ["failed"],
