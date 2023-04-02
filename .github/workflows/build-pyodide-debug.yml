@@ -69,7 +69,7 @@ jobs:
       - name: clone pyodide repo
         shell: bash -l {0}
         run: |
-          git clone https://github.com/pyodide/pyodide
+          git clone https://github.com/lesteve/pyodide --branch use-openblas
           cd pyodide
           git log -1
           pip install -r requirements.txt
