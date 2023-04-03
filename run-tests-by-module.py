@@ -1,50 +1,37 @@
 import shlex
 import sys
 import itertools
-import unittest
 import asyncio
 
-
-# This is the output of the command run from the scipy root folder:
+# Test submodules are from the output of the command run from the scikit-learn
+# root folder:
 # find scipy/linalg -name 'test_*' | sort | perl -pe 's@/@.@g' | perl -pe 's@\.py$@@g'
-test_submodules_str = """
-scipy.linalg.tests.test_basic
-scipy.linalg.tests.test_blas
-scipy.linalg.tests.test_cython_blas
-scipy.linalg.tests.test_cythonized_array_utils
-scipy.linalg.tests.test_cython_lapack
-scipy.linalg.tests.test_decomp_cholesky
-scipy.linalg.tests.test_decomp_cossin
-scipy.linalg.tests.test_decomp_ldl
-scipy.linalg.tests.test_decomp_polar
-scipy.linalg.tests.test_decomp
-scipy.linalg.tests.test_decomp_update
-scipy.linalg.tests.test_fblas
-scipy.linalg.tests.test_interpolative
-scipy.linalg.tests.test_lapack
-scipy.linalg.tests.test_matfuncs
-scipy.linalg.tests.test_matmul_toeplitz
-scipy.linalg.tests.test_misc
-scipy.linalg.tests.test_procrustes
-scipy.linalg.tests.test_sketches
-scipy.linalg.tests.test_solvers
-scipy.linalg.tests.test_solve_toeplitz
-scipy.linalg.tests.test_special_matrices
-"""
-
-test_submodules = test_submodules_str.split()
-
-expected_test_results_by_category = {
-    "failed": [
-    ],
-    "fatal error or timeout": [
-    ],
-    "passed": test_submodules,
-    "pytest usage error": [
-    ],
-    "tests collection error": [
-    ],
+expected_test_results = {
+    "scipy.linalg.tests.test_basic": ["passed"],
+    "scipy.linalg.tests.test_blas": ["passed"],
+    "scipy.linalg.tests.test_cython_blas": ["passed"],
+    "scipy.linalg.tests.test_cythonized_array_utils": ["passed"],
+    "scipy.linalg.tests.test_cython_lapack": ["passed"],
+    "scipy.linalg.tests.test_decomp_cholesky": ["passed"],
+    "scipy.linalg.tests.test_decomp_cossin": ["passed"],
+    "scipy.linalg.tests.test_decomp_ldl": ["passed"],
+    "scipy.linalg.tests.test_decomp_polar": ["passed"],
+    "scipy.linalg.tests.test_decomp": ["passed"],
+    "scipy.linalg.tests.test_decomp_update": ["passed"],
+    "scipy.linalg.tests.test_fblas": ["passed"],
+    "scipy.linalg.tests.test_interpolative": ["passed"],
+    "scipy.linalg.tests.test_lapack": ["passed"],
+    "scipy.linalg.tests.test_matfuncs": ["passed"],
+    "scipy.linalg.tests.test_matmul_toeplitz": ["passed"],
+    "scipy.linalg.tests.test_misc": ["passed"],
+    "scipy.linalg.tests.test_procrustes": ["passed"],
+    "scipy.linalg.tests.test_sketches": ["passed"],
+    "scipy.linalg.tests.test_solvers": ["passed"],
+    "scipy.linalg.tests.test_solve_toeplitz": ["passed"],
+    "scipy.linalg.tests.test_special_matrices": ["passed"],
 }
+
+test_submodules = expected_test_results.keys()
 
 
 async def _read_stream(stream, cb, timeout_without_output):
@@ -125,8 +112,11 @@ def execute_command_with_timeout(command_list, timeout_without_output):
 
 
 def run_tests_for_module(module_str):
-    timeout_without_output = 60
-    command_str = f"node --experimental-fetch scipy-pytest.js -v {module_str}"
+    # some tests in scipy.interpolate e.g.
+    # test_rbfinterp.py::TestRBFInterpolatorNeighborsInf::test_chunking can
+    # take more than 60s to run
+    timeout_without_output = 120 if "interpolate" in module_str else 60
+    command_str = f"node --experimental-fetch scipy-pytest.js --pyargs {module_str} -v --durations 10"
     command_list = shlex.split(command_str)
     command_result = execute_command_with_timeout(
         command_list=command_list, timeout_without_output=timeout_without_output
@@ -171,7 +161,7 @@ def print_summary(module_results):
 
     print()
     print("-" * 80)
-    print("Grouped by category:")
+    print("Grouped by category")
     print("-" * 80)
 
     def fun(each):
@@ -188,28 +178,40 @@ def print_summary(module_results):
 
     sys.stdout.flush()
 
-    # Compare test results with expectations. Easiest way I found to compare
-    # dicts with a good error message is to use unittest
-    tc = unittest.TestCase()
-    # to show full info about the diff
-    tc.maxDiff = None
-    test_results_with_sets = {k: set(v) for k, v in test_results_by_category.items()}
-    expected_test_results_with_sets = {
-        k: set(v) for k, v in expected_test_results_by_category.items()
-    }
-    tc.assertDictEqual(expected_test_results_with_sets, test_results_with_sets)
+    mismatches = []
+    for each in module_results:
+        expected_categories = expected_test_results[each["module"]]
+        if each["category"] not in expected_categories:
+            message = (
+                f"{each['module']} result expected in {expected_categories}, "
+                f"got {each['category']!r} instead"
+            )
+            mismatches.append(message)
+
+    if mismatches:
+        mismatches_str = "\n".join(mismatches)
+        print()
+        print("-" * 80)
+        print("Unexpected test results")
+        print("-" * 80)
+        print(mismatches_str)
+
+        return 1
+
     print("Test results matched expected ones")
+    return 0
 
 
 def main():
     module_results = []
 
-    custom_pytest_args = " ".join(sys.argv[1:])
+    custom_pytest_args = shlex.join(sys.argv[1:])
     if custom_pytest_args:
         global test_submodules
-        test_submodules = [" ".join(sys.argv[1:])]
+        test_submodules = [custom_pytest_args]
 
     for module in test_submodules:
+        print()
         print("-" * 80, flush=True)
         print(module, flush=True)
         print("-" * 80, flush=True)
@@ -223,7 +225,8 @@ def main():
     # When using custom pytest args, we run a single pytest command and it does
     # not make sense to compare results to expectation
     if not custom_pytest_args:
-        print_summary(module_results)
+        exit_code = print_summary(module_results)
+        sys.exit(exit_code)
 
 
 if __name__ == "__main__":
