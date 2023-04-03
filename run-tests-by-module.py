@@ -1,80 +1,32 @@
 import shlex
 import sys
 import itertools
-import unittest
 import asyncio
-
 
 # This is the output of the command run from the scipy root folder:
 # find scipy/signal/tests -name 'test_*' | sort | perl -pe 's@/@.@g' | perl -pe 's@\.py$@@g'
-test_submodules_str = """
-scipy.signal.tests.test_array_tools
-scipy.signal.tests.test_bsplines
-scipy.signal.tests.test_cont2discrete
-scipy.signal.tests.test_czt
-scipy.signal.tests.test_dltisys
-scipy.signal.tests.test_filter_design
-scipy.signal.tests.test_fir_filter_design
-scipy.signal.tests.test_ltisys
-scipy.signal.tests.test_max_len_seq
-scipy.signal.tests.test_peak_finding
-scipy.signal.tests.test_result_type
-scipy.signal.tests.test_savitzky_golay
-scipy.signal.tests.test_signaltools
-scipy.signal.tests.test_spectral
-scipy.signal.tests.test_upfirdn
-scipy.signal.tests.test_waveforms
-scipy.signal.tests.test_wavelets
-scipy.signal.tests.test_windows
-"""
-
-test_submodules = test_submodules_str.split()
-
-expected_test_results_by_category = {
-    "failed": [
-        "scipy.interpolate.tests",
-        "scipy.ndimage.tests",
-        "scipy.sparse.linalg._dsolve.tests",
-        "scipy.sparse.linalg._eigen.arpack.tests",
-        "scipy.special.tests",
-    ],
-    "fatal error or timeout": [
-        "scipy.fft.tests",
-        "scipy.linalg.tests",
-        "scipy.signal.tests",
-        "scipy.sparse.linalg._isolve.tests",
-        "scipy.sparse.linalg.tests",
-        "scipy.sparse.tests",
-        "scipy.spatial.tests",
-        "scipy.stats.tests",
-    ],
-    "passed": [
-        "scipy._build_utils.tests",
-        "scipy.cluster.tests",
-        "scipy.constants.tests",
-        "scipy.fftpack.tests",
-        "scipy.fft._pocketfft.tests",
-        "scipy.io.arff.tests",
-        "scipy.io._harwell_boeing.tests",
-        "scipy.io.matlab.tests",
-        "scipy.misc.tests",
-        "scipy.odr.tests",
-        "scipy.optimize._trustregion_constr.tests",
-        "scipy.sparse.csgraph.tests",
-        "scipy.sparse.linalg._eigen.lobpcg.tests",
-        "scipy.sparse.linalg._eigen.tests",
-        "scipy.spatial.transform.tests",
-    ],
-    "pytest usage error": [
-        "scipy.integrate._ivp.tests",
-    ],
-    "tests collection error": [
-        "scipy.integrate.tests",
-        "scipy.io.tests",
-        "scipy._lib.tests",
-        "scipy.optimize.tests",
-    ],
+expected_test_results = {
+    "scipy.signal.tests.test_array_tools": ["passed"],
+    "scipy.signal.tests.test_bsplines": ["passed"],
+    "scipy.signal.tests.test_cont2discrete": ["passed"],
+    "scipy.signal.tests.test_czt": ["passed"],
+    "scipy.signal.tests.test_dltisys": ["passed"],
+    "scipy.signal.tests.test_filter_design": ["passed"],
+    "scipy.signal.tests.test_fir_filter_design": ["passed"],
+    "scipy.signal.tests.test_ltisys": ["passed"],
+    "scipy.signal.tests.test_max_len_seq": ["passed"],
+    "scipy.signal.tests.test_peak_finding": ["passed"],
+    "scipy.signal.tests.test_result_type": ["passed"],
+    "scipy.signal.tests.test_savitzky_golay": ["passed"],
+    "scipy.signal.tests.test_signaltools": ["passed"],
+    "scipy.signal.tests.test_spectral": ["passed"],
+    "scipy.signal.tests.test_upfirdn": ["passed"],
+    "scipy.signal.tests.test_waveforms": ["passed"],
+    "scipy.signal.tests.test_wavelets": ["passed"],
+    "scipy.signal.tests.test_windows": ["passed"],
 }
+
+test_submodules = expected_test_results.keys()
 
 
 async def _read_stream(stream, cb, timeout_without_output):
@@ -155,8 +107,11 @@ def execute_command_with_timeout(command_list, timeout_without_output):
 
 
 def run_tests_for_module(module_str):
-    timeout_without_output = 60
-    command_str = f"node --experimental-fetch scipy-pytest.js -v {module_str}"
+    # some tests in scipy.interpolate e.g.
+    # test_rbfinterp.py::TestRBFInterpolatorNeighborsInf::test_chunking can
+    # take more than 60s to run
+    timeout_without_output = 120 if "interpolate" in module_str else 60
+    command_str = f"node --experimental-fetch scipy-pytest.js --pyargs {module_str} -v --durations 10"
     command_list = shlex.split(command_str)
     command_result = execute_command_with_timeout(
         command_list=command_list, timeout_without_output=timeout_without_output
@@ -201,7 +156,7 @@ def print_summary(module_results):
 
     print()
     print("-" * 80)
-    print("Grouped by category:")
+    print("Grouped by category")
     print("-" * 80)
 
     def fun(each):
@@ -218,28 +173,40 @@ def print_summary(module_results):
 
     sys.stdout.flush()
 
-    # Compare test results with expectations. Easiest way I found to compare
-    # dicts with a good error message is to use unittest
-    tc = unittest.TestCase()
-    # to show full info about the diff
-    tc.maxDiff = None
-    test_results_with_sets = {k: set(v) for k, v in test_results_by_category.items()}
-    expected_test_results_with_sets = {
-        k: set(v) for k, v in expected_test_results_by_category.items()
-    }
-    tc.assertDictEqual(expected_test_results_with_sets, test_results_with_sets)
+    mismatches = []
+    for each in module_results:
+        expected_categories = expected_test_results[each["module"]]
+        if each["category"] not in expected_categories:
+            message = (
+                f"{each['module']} result expected in {expected_categories}, "
+                f"got {each['category']!r} instead"
+            )
+            mismatches.append(message)
+
+    if mismatches:
+        mismatches_str = "\n".join(mismatches)
+        print()
+        print("-" * 80)
+        print("Unexpected test results")
+        print("-" * 80)
+        print(mismatches_str)
+
+        return 1
+
     print("Test results matched expected ones")
+    return 0
 
 
 def main():
     module_results = []
 
-    custom_pytest_args = " ".join(sys.argv[1:])
+    custom_pytest_args = shlex.join(sys.argv[1:])
     if custom_pytest_args:
         global test_submodules
-        test_submodules = [" ".join(sys.argv[1:])]
+        test_submodules = [custom_pytest_args]
 
     for module in test_submodules:
+        print()
         print("-" * 80, flush=True)
         print(module, flush=True)
         print("-" * 80, flush=True)
@@ -253,7 +220,8 @@ def main():
     # When using custom pytest args, we run a single pytest command and it does
     # not make sense to compare results to expectation
     if not custom_pytest_args:
-        print_summary(module_results)
+        exit_code = print_summary(module_results)
+        sys.exit(exit_code)
 
 
 if __name__ == "__main__":
