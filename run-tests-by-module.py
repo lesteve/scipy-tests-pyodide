@@ -1,87 +1,39 @@
 import shlex
 import sys
 import itertools
-import unittest
 import asyncio
-
 
 # This is the output of the command run from the scipy root folder:
 # find scipy/stats/tests -name 'test_*' | sort | perl -pe 's@/@.@g' | perl -pe 's@\.py$@@g'
-test_submodules_str = """
-scipy.stats.tests.test_axis_nan_policy
-scipy.stats.tests.test_binned_statistic
-scipy.stats.tests.test_boost_ufuncs
-scipy.stats.tests.test_contingency
-scipy.stats.tests.test_continuous_basic
-scipy.stats.tests.test_crosstab
-scipy.stats.tests.test_discrete_basic
-scipy.stats.tests.test_discrete_distns
-scipy.stats.tests.test_distributions
-scipy.stats.tests.test_entropy
-scipy.stats.tests.test_fit
-scipy.stats.tests.test_hypotests
-scipy.stats.tests.test_kdeoth
-scipy.stats.tests.test_morestats
-scipy.stats.tests.test_mstats_basic
-scipy.stats.tests.test_mstats_extras
-scipy.stats.tests.test_multivariate
-scipy.stats.tests.test_qmc
-scipy.stats.tests.test_rank
-scipy.stats.tests.test_relative_risk
-scipy.stats.tests.test_resampling
-scipy.stats.tests.test_sampling
-scipy.stats.tests.test_stats
-scipy.stats.tests.test_tukeylambda_stats
-scipy.stats.tests.test_variation
-"""
-
-test_submodules = test_submodules_str.split()
-
-expected_test_results_by_category = {
-    "failed": [
-        "scipy.interpolate.tests",
-        "scipy.ndimage.tests",
-        "scipy.sparse.linalg._dsolve.tests",
-        "scipy.sparse.linalg._eigen.arpack.tests",
-        "scipy.special.tests",
-    ],
-    "fatal error or timeout": [
-        "scipy.fft.tests",
-        "scipy.linalg.tests",
-        "scipy.signal.tests",
-        "scipy.sparse.linalg._isolve.tests",
-        "scipy.sparse.linalg.tests",
-        "scipy.sparse.tests",
-        "scipy.spatial.tests",
-        "scipy.stats.tests",
-    ],
-    "passed": [
-        "scipy._build_utils.tests",
-        "scipy.cluster.tests",
-        "scipy.constants.tests",
-        "scipy.fftpack.tests",
-        "scipy.fft._pocketfft.tests",
-        "scipy.io.arff.tests",
-        "scipy.io._harwell_boeing.tests",
-        "scipy.io.matlab.tests",
-        "scipy.misc.tests",
-        "scipy.odr.tests",
-        "scipy.optimize._trustregion_constr.tests",
-        "scipy.sparse.csgraph.tests",
-        "scipy.sparse.linalg._eigen.lobpcg.tests",
-        "scipy.sparse.linalg._eigen.tests",
-        "scipy.spatial.transform.tests",
-    ],
-    "pytest usage error": [
-        "scipy.integrate._ivp.tests",
-    ],
-    "tests collection error": [
-        "scipy.integrate.tests",
-        "scipy.io.tests",
-        "scipy._lib.tests",
-        "scipy.optimize.tests",
-    ],
+expected_test_results = {
+    "scipy.stats.tests.test_axis_nan_policy": ["passed"],
+    "scipy.stats.tests.test_binned_statistic": ["passed"],
+    "scipy.stats.tests.test_boost_ufuncs": ["passed"],
+    "scipy.stats.tests.test_contingency": ["passed"],
+    "scipy.stats.tests.test_continuous_basic": ["passed"],
+    "scipy.stats.tests.test_crosstab": ["passed"],
+    "scipy.stats.tests.test_discrete_basic": ["passed"],
+    "scipy.stats.tests.test_discrete_distns": ["passed"],
+    "scipy.stats.tests.test_distributions": ["passed"],
+    "scipy.stats.tests.test_entropy": ["passed"],
+    "scipy.stats.tests.test_fit": ["passed"],
+    "scipy.stats.tests.test_hypotests": ["passed"],
+    "scipy.stats.tests.test_kdeoth": ["passed"],
+    "scipy.stats.tests.test_morestats": ["passed"],
+    "scipy.stats.tests.test_mstats_basic": ["passed"],
+    "scipy.stats.tests.test_mstats_extras": ["passed"],
+    "scipy.stats.tests.test_multivariate": ["passed"],
+    "scipy.stats.tests.test_qmc": ["passed"],
+    "scipy.stats.tests.test_rank": ["passed"],
+    "scipy.stats.tests.test_relative_risk": ["passed"],
+    "scipy.stats.tests.test_resampling": ["passed"],
+    "scipy.stats.tests.test_sampling": ["passed"],
+    "scipy.stats.tests.test_stats": ["passed"],
+    "scipy.stats.tests.test_tukeylambda_stats": ["passed"],
+    "scipy.stats.tests.test_variation": ["passed"],
 }
+
+test_submodules = expected_test_results.keys()
 
 
 async def _read_stream(stream, cb, timeout_without_output):
@@ -162,8 +114,11 @@ def execute_command_with_timeout(command_list, timeout_without_output):
 
 
 def run_tests_for_module(module_str):
-    timeout_without_output = 60
-    command_str = f"node --experimental-fetch scipy-pytest.js -v {module_str}"
+    # some tests in scipy.interpolate e.g.
+    # test_rbfinterp.py::TestRBFInterpolatorNeighborsInf::test_chunking can
+    # take more than 60s to run
+    timeout_without_output = 120 if "interpolate" in module_str else 60
+    command_str = f"node --experimental-fetch scipy-pytest.js --pyargs {module_str} -v --durations 10"
     command_list = shlex.split(command_str)
     command_result = execute_command_with_timeout(
         command_list=command_list, timeout_without_output=timeout_without_output
@@ -208,7 +163,7 @@ def print_summary(module_results):
 
     print()
     print("-" * 80)
-    print("Grouped by category:")
+    print("Grouped by category")
     print("-" * 80)
 
     def fun(each):
@@ -225,28 +180,40 @@ def print_summary(module_results):
 
     sys.stdout.flush()
 
-    # Compare test results with expectations. Easiest way I found to compare
-    # dicts with a good error message is to use unittest
-    tc = unittest.TestCase()
-    # to show full info about the diff
-    tc.maxDiff = None
-    test_results_with_sets = {k: set(v) for k, v in test_results_by_category.items()}
-    expected_test_results_with_sets = {
-        k: set(v) for k, v in expected_test_results_by_category.items()
-    }
-    tc.assertDictEqual(expected_test_results_with_sets, test_results_with_sets)
+    mismatches = []
+    for each in module_results:
+        expected_categories = expected_test_results[each["module"]]
+        if each["category"] not in expected_categories:
+            message = (
+                f"{each['module']} result expected in {expected_categories}, "
+                f"got {each['category']!r} instead"
+            )
+            mismatches.append(message)
+
+    if mismatches:
+        mismatches_str = "\n".join(mismatches)
+        print()
+        print("-" * 80)
+        print("Unexpected test results")
+        print("-" * 80)
+        print(mismatches_str)
+
+        return 1
+
     print("Test results matched expected ones")
+    return 0
 
 
 def main():
     module_results = []
 
-    custom_pytest_args = " ".join(sys.argv[1:])
+    custom_pytest_args = shlex.join(sys.argv[1:])
     if custom_pytest_args:
         global test_submodules
-        test_submodules = [" ".join(sys.argv[1:])]
+        test_submodules = [custom_pytest_args]
 
     for module in test_submodules:
+        print()
         print("-" * 80, flush=True)
         print(module, flush=True)
         print("-" * 80, flush=True)
@@ -260,7 +227,8 @@ def main():
     # When using custom pytest args, we run a single pytest command and it does
     # not make sense to compare results to expectation
     if not custom_pytest_args:
-        print_summary(module_results)
+        exit_code = print_summary(module_results)
+        sys.exit(exit_code)
 
 
 if __name__ == "__main__":

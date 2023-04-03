@@ -1,4 +1,4 @@
-name: Test Emscripten/Pyodide build
+name: Scipy tests
 
 on:
   push:
@@ -15,11 +15,7 @@ jobs:
   build-wasm-emscripten:
     runs-on: ubuntu-latest
     env:
-      PYODIDE_VERSION: '0.22.0a3'
-      PYODIDE_JS_VERSION: '0.22.0-alpha.3'
-      PYTHON_VERSION: '3.10.7'
       NODE_VERSION: 18
-      EMSCRIPTEN_VERSION: 3.1.24
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -50,22 +46,10 @@ jobs:
 
       - name: Unzip Pyodide debug build artifact
         run: |
-          unzip pyodide-build.zip -d dist
-          ls -ltrh dist
-
-      - name: set up python
-        id: setup-python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - uses: mymindstorm/setup-emsdk@v11
-        with:
-          version: ${{ env.EMSCRIPTEN_VERSION }}
-          actions-cache-folder: emsdk-cache
-
-      - name: Install pyodide-build
-        run: pip install pyodide-build==$PYODIDE_VERSION
+          unzip pyodide-build.zip -d pyodide
+          ls -ltrh pyodide/dist
+          # Put back lost permission in artifact
+          chmod u+x pyodide/dist/python
 
       - name: set up node
         uses: actions/setup-node@v3
@@ -74,11 +58,11 @@ jobs:
 
       - name: install Pyodide
         run: |
-          npm install "pyodide@$PYODIDE_JS_VERSION"
+          npm install "pyodide"
 
       - name: install debug build
         run: |
-          cp dist/* node_modules/pyodide
+          cp -r pyodide/dist/* node_modules/pyodide
 
       - name: Test
         run: |
