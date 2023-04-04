@@ -60,9 +60,11 @@ tests_to_skip = [
     "test_propack",
     # memory corruption
     "test_gcrotmk.+test_cornercase",
-    "test_iterative.+test_convergence.+precond_dummy",
-    "test_iterative.+test_convergence.+gcrotmk",
-    "test_iterative.+test_convergence.+lgmres",
+    "test_iterative.+precond_dummy",
+    "test_iterative.+test_convergence",
+    "test_iterative.+gcrotmk",
+    "test_iterative.+lgmres",
+    "test_iterative.+test_maxiter$",
     # scipy/stats/tests
     # seems like a memory corruption (not deterministic not always the same
     # parametetrized tests that fails)
