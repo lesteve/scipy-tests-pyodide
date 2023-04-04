@@ -35,7 +35,7 @@ expected_test_results = {
     "scipy.sparse.linalg._eigen.arpack.tests": ["passed"],
     "scipy.sparse.linalg._eigen.lobpcg.tests": ["passed"],
     "scipy.sparse.linalg._eigen.tests": ["passed"],
-    "scipy.sparse.linalg._isolve.tests": ["failed"],
+    "scipy.sparse.linalg._isolve.tests": ["passed"],
     "scipy.sparse.linalg.tests": ["passed"],
     "scipy.sparse.tests": ["passed"],
     "scipy.spatial.tests": ["passed"],
