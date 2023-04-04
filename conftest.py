@@ -56,8 +56,10 @@ tests_to_skip = [
     # memory corruption
     "test_minpack.py.+TestLeastSq.+test_reentrant_func",
     # scipy/sparse/tests
+    # signature mismatch
+    "test_propack",
     # memory corruption
-    "test_gcrotmk.+not test_cornercase",
+    "test_gcrotmk.+test_cornercase",
     "test_iterative.+test_convergence.+precond_dummy",
     "test_iterative.+test_convergence.+gcrotmk",
     "test_iterative.+test_convergence.+lgmres"
