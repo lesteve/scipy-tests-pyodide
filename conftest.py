@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 tests_to_xfail = [
@@ -28,12 +30,52 @@ tests_to_xfail = [
     "test_sparsetools.py::test_threads",
 ]
 
+# Those tests need to be skipped because they crash Pyodide, typically
+# signature mismatch or memory corruption
+tests_to_skip = [
+    # scipy/linalg tests
+    # memory corruption
+    "test_basic.py.+test_hermitian",
+    # memory corruption
+    "test_basic.py.+TestLstsq.+random_exact",
+    # signature mismatch
+    "test_blas.+test_complex_dotu",
+    # signature mismatch
+    "test_cython_blas.+complex",
+    # missing symbol
+    "test_decomp_cossin",
+    # signature mismatch
+    "test_lapack.py.+larfg_larf",
+    # missing symbols
+    "test_lapack.py.+geqrt_gemqrt",
+    "test_lapack.py.+tpqrt_tpmqrt",
+    "test_lapack.py.+test_geqrfp",
+    "test_lapack.py.+orcsd_uncsd",
+    "test_lapack.py.+test_gtsvx_error_singular",
+    # scipy/optimize/tests
+    # memory corruption
+    "test_minpack.py.+TestLeastSq.+test_reentrant_func",
+    # scipy/sparse/tests
+    # memory corruption
+    "test_gcrotmk.+not test_cornercase",
+    "test_iterative.+test_convergence.+precond_dummy",
+    "test_iterative.+test_convergence.+gcrotmk",
+    "test_iterative.+test_convergence.+lgmres"
+    # scipy/stats/tests
+    # seems like a memory corruption (not deterministic not always the same
+    # parametetrized tests that fails)
+    "test_resampling.+TestMonteCarloHypothesisTest.+test_against_anderson.+logistic",
+]
+
 def pytest_collection_modifyitems(config, items):
-    marker = pytest.mark.xfail(reason=("Known Pyodide limitation"))
+    xfail_marker = pytest.mark.xfail(reason=("Known Pyodide limitation"))
+    skip_marker = pytest.mark.skip(reason=("Avoid crashing Pyodide"))
     for item in items:
         path, line, name = item.reportinfo()
         path = str(path)
         full_name = f"{path}::{name}"
-        if any(each in full_name for each in tests_to_xfail):
-            print(full_name)
-            item.add_marker(marker)
+        if any(re.search(each, full_name) for each in tests_to_xfail):
+            item.add_marker(xfail_marker)
+
+        if any(re.search(each, full_name) for each in tests_to_skip):
+            item.add_marker(skip_marker)

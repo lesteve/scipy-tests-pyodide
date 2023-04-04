@@ -27,7 +27,12 @@ async function main() {
     await pyodide.runPythonAsync(`
        import micropip
 
-       await micropip.install(['scipy'])
+       await micropip.install('scipy')
+
+       try:
+           await micropip.install('scipy-tests')
+       except ValueError:
+           print('Hoping scipy tests are included in the scipy wheel')
 
        pkg_list = micropip.list()
        print(pkg_list)
