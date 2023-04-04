@@ -54,7 +54,7 @@ tests_to_skip = [
     "test_lapack.py.+test_gtsvx_error_singular",
     # scipy/optimize/tests
     # memory corruption
-    "test_minpack.py.+TestLeastSq.+test_reentrant_func",
+    "test_minpack.py.+test_reentrant_func",
     # scipy/sparse/tests
     # signature mismatch
     "test_propack",
@@ -62,7 +62,7 @@ tests_to_skip = [
     "test_gcrotmk.+test_cornercase",
     "test_iterative.+test_convergence.+precond_dummy",
     "test_iterative.+test_convergence.+gcrotmk",
-    "test_iterative.+test_convergence.+lgmres"
+    "test_iterative.+test_convergence.+lgmres",
     # scipy/stats/tests
     # seems like a memory corruption (not deterministic not always the same
     # parametetrized tests that fails)
