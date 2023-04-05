@@ -42,6 +42,15 @@ tests_to_mark = [
     ("test_filters.py::TestThreading", xfail, "no threading support"),
     # scipy/optimize/tests
     ("test_minpack.py.+test_reentrant_func", skip, "memory corruption"),
+    ("test_optimize.py::test_cobyla_threadsafe", xfail, "no threading support"),
+    (
+        "TestDifferentialEvolutionSolver.test_immediate_updating",
+        xfail,
+        "no process support",
+    ),
+    ("TestDifferentialEvolutionSolver.test_parallel", xfail, "no process support"),
+    ("TestFSolve.test_concurrent.+", xfail, "no process support"),
+    ("TestBrute.test_workers", xfail, "no process support"),
     # scipy/signal/tests
     (
         "test_signaltools.py::TestMedFilt.test_medfilt2d_parallel",
@@ -72,6 +81,8 @@ tests_to_mark = [
         skip,
         "memory corruption",
     ),
+    ("test_sampling.py::test_threading_behaviour", xfail, "no threading support"),
+    ("test_stats.py::TestMGCStat::test_workers", xfail, "no process support"),
 ]
 
 
