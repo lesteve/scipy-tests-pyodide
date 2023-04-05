@@ -23,11 +23,11 @@ expected_test_results = {
     "scipy.io.matlab.tests": ["passed"],
     "scipy.io.tests": ["tests collection error"],
     "scipy._lib.tests": ["passed"],
-    "scipy.linalg.tests": ["fatal error or timeout"],
+    "scipy.linalg.tests": ["failed"],
     "scipy.misc.tests": ["passed"],
     "scipy.ndimage.tests": ["passed"],
     "scipy.odr.tests": ["passed"],
-    "scipy.optimize.tests": ["fatal error or timeout", "failed"],
+    "scipy.optimize.tests": ["failed"],
     "scipy.optimize._trustregion_constr.tests": ["passed"],
     "scipy.signal.tests": ["failed"],
     "scipy.sparse.csgraph.tests": ["passed"],
@@ -35,13 +35,13 @@ expected_test_results = {
     "scipy.sparse.linalg._eigen.arpack.tests": ["passed"],
     "scipy.sparse.linalg._eigen.lobpcg.tests": ["passed"],
     "scipy.sparse.linalg._eigen.tests": ["passed"],
-    "scipy.sparse.linalg._isolve.tests": ["fatal error or timeout"],
-    "scipy.sparse.linalg.tests": ["fatal error or timeout"],
+    "scipy.sparse.linalg._isolve.tests": ["passed"],
+    "scipy.sparse.linalg.tests": ["passed"],
     "scipy.sparse.tests": ["passed"],
     "scipy.spatial.tests": ["passed"],
     "scipy.spatial.transform.tests": ["passed"],
     "scipy.special.tests": ["failed"],
-    "scipy.stats.tests": ["fatal error or timeout"],
+    "scipy.stats.tests": ["failed"],
 }
 
 test_submodules = expected_test_results.keys()
@@ -131,7 +131,7 @@ def run_tests_for_module(module_str):
     # take more than 60s to run
     use_longer_timeout = "interpolate" in module_str or "stats" in module_str
     timeout_without_output = 120 if use_longer_timeout else 60
-    command_str = f"node --experimental-fetch scipy-pytest.js --pyargs {module_str} -v --durations 10"
+    command_str = f"node --experimental-fetch scipy-pytest.js --pyargs {module_str} -v --durations 20"
     command_list = shlex.split(command_str)
     command_result = execute_command_with_timeout(
         command_list=command_list, timeout_without_output=timeout_without_output
