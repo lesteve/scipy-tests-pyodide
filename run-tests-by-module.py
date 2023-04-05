@@ -131,7 +131,7 @@ def run_tests_for_module(module_str):
     # take more than 60s to run
     use_longer_timeout = "interpolate" in module_str or "stats" in module_str
     timeout_without_output = 120 if use_longer_timeout else 60
-    command_str = f"node --experimental-fetch scipy-pytest.js --pyargs {module_str} -v --durations 10"
+    command_str = f"node --experimental-fetch scipy-pytest.js --pyargs {module_str} -v --durations 20"
     command_list = shlex.split(command_str)
     command_result = execute_command_with_timeout(
         command_list=command_list, timeout_without_output=timeout_without_output
