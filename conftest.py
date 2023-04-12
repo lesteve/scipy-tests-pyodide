@@ -27,17 +27,9 @@ tests_to_mark = [
     ("test_numpy.py::TestFFTThreadSafe", xfail, "no threading support"),
     ("test_numpy.py::test_multiprocess", xfail, "no process support"),
     # scipy/linalg tests
-    ("test_basic.py.+test_hermitian", skip, "memory corruption"),
-    ("test_basic.py.+TestLstsq.+random_exact", skip, "memory corruption"),
     ("test_blas.+test_complex_dotu", skip, "signature mismatch"),
     ("test_cython_blas.+complex", skip, "signature mismatch"),
-    ("test_decomp_cossin", skip, "missing symbol"),
-    ("test_lapack.py.+larfg_larf", skip, "missing symbol"),
-    ("test_lapack.py.+geqrt_gemqrt", skip, "missing symbol"),
-    ("test_lapack.py.+tpqrt_tpmqrt", skip, "missing symbol"),
-    ("test_lapack.py.+test_geqrfp", skip, "missing symbol"),
-    ("test_lapack.py.+orcsd_uncsd", skip, "missing symbol"),
-    ("test_lapack.py.+test_gtsvx_error_singular", skip, "missing symbol"),
+    ("test_lapack.py.+larfg_larf", skip, "signature mismatch"),
     # scipy/ndimage/tests
     ("test_filters.py::TestThreading", xfail, "no threading support"),
     # scipy/optimize/tests
@@ -65,12 +57,6 @@ tests_to_mark = [
     ),
     # scipy/sparse/tests
     ("test_arpack.py::test_parallel_threads", xfail, "no threading support"),
-    ("test_gcrotmk.+test_cornercase", skip, "memory corruption"),
-    ("test_iterative.+precond_dummy", skip, "memory corruption"),
-    ("test_iterative.+test_convergence", skip, "memory corruption"),
-    ("test_iterative.+gcrotmk", skip, "memory corruption"),
-    ("test_iterative.+lgmres", skip, "memory corruption"),
-    ("test_iterative.+test_maxiter$", skip, "memory corruption"),
     ("test_linsolve.py::TestSplu.test_threads_parallel", xfail, "no threading support"),
     ("test_propack", skip, "signature mismatch"),
     ("test_sparsetools.py::test_threads", xfail, "no threading support"),

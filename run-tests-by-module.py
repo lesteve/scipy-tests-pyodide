@@ -23,7 +23,7 @@ expected_test_results = {
     "scipy.io.matlab.tests": ["passed"],
     "scipy.io.tests": ["tests collection error"],
     "scipy._lib.tests": ["passed"],
-    "scipy.linalg.tests": ["failed"],
+    "scipy.linalg.tests": ["passed"],
     "scipy.misc.tests": ["passed"],
     "scipy.ndimage.tests": ["passed"],
     "scipy.odr.tests": ["passed"],
