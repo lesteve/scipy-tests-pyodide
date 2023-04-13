@@ -68,6 +68,8 @@ tests_to_mark = [
     ),
     ("test_kdtree.py::test_ckdtree_parallel", xfail, "no threading support"),
     # scipy/stats/tests
+    ("test_qmc.py::TestVDC.test_van_der_corput", xfail, "no threading support"),
+    ("test_qmc.py::TestHalton.test_workers", xfail, "no threading support"),
     (
         "test_resampling.+TestMonteCarloHypothesisTest.+test_against_anderson.+logistic",
         skip,
