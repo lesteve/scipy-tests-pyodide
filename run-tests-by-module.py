@@ -172,7 +172,11 @@ def print_summary(module_results):
     print("=" * 80)
 
     for each in module_results:
-        print(f"{each['module']} {each['category']} (exit code {each['exit_code']})")
+        expected_categories = expected_test_results[each["module"]]
+        print(
+            f"{each['module']} {each['category']} (exit code {each['exit_code']}), "
+            f"expected {expected_categories}"
+        )
 
     print()
     print("-" * 80)

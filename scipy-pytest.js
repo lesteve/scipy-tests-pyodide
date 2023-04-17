@@ -11,7 +11,7 @@ async function main() {
 
     let mountDir = "/mnt";
     pyodide.FS.mkdir(mountDir);
-      pyodide.FS.mount(pyodide.FS.filesystems.NODEFS, { root: "." }, mountDir);
+    pyodide.FS.mount(pyodide.FS.filesystems.NODEFS, { root: "." }, mountDir);
 
     // Copy conftest.py to current dir if it exists
     await pyodide.runPythonAsync(`
@@ -33,6 +33,8 @@ async function main() {
            await micropip.install('scipy-tests')
        except ValueError:
            print('Hoping scipy tests are included in the scipy wheel')
+       
+       await micropip.install('pytest-repeat')
 
        pkg_list = micropip.list()
        print(pkg_list)
@@ -47,8 +49,10 @@ async function main() {
     exit_code = pytest.main(pyodide.toPy(args));
   } catch (e) {
     console.error(e);
-    // Arbitrary exit code here. When there is a Pyodide fatal error, we don't
-    // get here somehow and the exit code is 7
+    // Arbitrary exit code here. I have seen this code reached instead of a
+    // Pyodide fatal error sometimes (I guess kind of similar to a random
+    // Python error). When there is a Pyodide fatal error we don't end up here
+    // somehow, and the exit code is 7
     exit_code = 66;
 
   } finally {
