@@ -75,6 +75,7 @@ tests_to_mark = [
     # scipy/stats/tests
     ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
     ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),
+    ("test_qmc.py::TestUtils.test_discrepancy_parallel", xfail, thread_msg),
     (
         "test_resampling.+TestMonteCarloHypothesisTest.+test_against_anderson.+logistic",
         skip,
