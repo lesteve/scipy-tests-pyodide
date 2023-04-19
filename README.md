@@ -24,16 +24,7 @@ python run-tests-by-modules.py
 
 ## Expected failures due to Pyodide limitations
 
-Those tests are marked as xfail in `conftest.py`.
-
-- `scipy.fft.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/7. Test
-  failures use threads or multiprocessing.
-- `scipy._lib.tests` all tests uses multiprocessing, threads or some fork call https://github.com/lesteve/scipy-tests-pyodide/issues/14
-- `scipy.ndimage.tests` test failures use threads
-- `scipy.sparse.linalg._dsolve.tests` test failures use threads
-- `scipy.sparse.linalg._eigen.arpack.tests` test failures use threads
-- `scipy.spatial.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/6.
-  Only 4 test failures due to tests creating threads.
+See xfailed tests in [conftest.py](./conftest.py).
 
 ## Other issues
 
@@ -47,81 +38,82 @@ for more details). These show up as tests collection error below.
 
 ## Results summary by modules
 
+2023-04-18
+
 ```
 ================================================================================
 Test results summary
 ================================================================================
-scipy._build_utils.tests passed (exit code 0)
-scipy.cluster.tests passed (exit code 0)
-scipy.constants.tests passed (exit code 0)
-scipy.fftpack.tests passed (exit code 0)
-scipy.fft._pocketfft.tests passed (exit code 0)
-scipy.fft.tests failed (exit code 1)
-scipy.integrate._ivp.tests pytest usage error (exit code 4)
-scipy.integrate.tests tests collection error (exit code 2)
-scipy.interpolate.tests failed (exit code 1)
-scipy.io.arff.tests passed (exit code 0)
-scipy.io._harwell_boeing.tests passed (exit code 0)
-scipy.io.matlab.tests passed (exit code 0)
-scipy.io.tests tests collection error (exit code 2)
-scipy._lib.tests failed (exit code 1)
-scipy.linalg.tests fatal error or timeout (exit code 66)
-scipy.misc.tests passed (exit code 0)
-scipy.ndimage.tests failed (exit code 1)
-scipy.odr.tests passed (exit code 0)
-scipy.optimize.tests fatal error or timeout (exit code None)
-scipy.optimize._trustregion_constr.tests passed (exit code 0)
-scipy.signal.tests failed (exit code 1)
-scipy.sparse.csgraph.tests passed (exit code 0)
-scipy.sparse.linalg._dsolve.tests failed (exit code 1)
-scipy.sparse.linalg._eigen.arpack.tests failed (exit code 1)
-scipy.sparse.linalg._eigen.lobpcg.tests passed (exit code 0)
-scipy.sparse.linalg._eigen.tests passed (exit code 0)
-scipy.sparse.linalg._isolve.tests fatal error or timeout (exit code 66)
-scipy.sparse.linalg.tests fatal error or timeout (exit code 66)
-scipy.sparse.tests failed (exit code 1)
-scipy.spatial.tests failed (exit code 1)
-scipy.spatial.transform.tests passed (exit code 0)
-scipy.special.tests failed (exit code 1)
-scipy.stats.tests fatal error or timeout (exit code 66)
+scipy._build_utils.tests pytest usage error (exit code 4), expected ['passed', 'pytest usage error']
+scipy.cluster.tests passed (exit code 0), expected ['passed']
+scipy.constants.tests passed (exit code 0), expected ['passed']
+scipy.fftpack.tests passed (exit code 0), expected ['passed']
+scipy.fft._pocketfft.tests passed (exit code 0), expected ['passed']
+scipy.fft.tests passed (exit code 0), expected ['passed']
+scipy.integrate._ivp.tests pytest usage error (exit code 4), expected ['pytest usage error']
+scipy.integrate.tests tests collection error (exit code 2), expected ['tests collection error']
+scipy.interpolate.tests failed (exit code 1), expected ['failed']
+scipy.io.arff.tests passed (exit code 0), expected ['passed']
+scipy.io._harwell_boeing.tests passed (exit code 0), expected ['passed']
+scipy.io.matlab.tests passed (exit code 0), expected ['passed']
+scipy.io.tests tests collection error (exit code 2), expected ['tests collection error']
+scipy._lib.tests passed (exit code 0), expected ['passed']
+scipy.linalg.tests passed (exit code 0), expected ['passed']
+scipy.misc.tests passed (exit code 0), expected ['passed']
+scipy.ndimage.tests passed (exit code 0), expected ['passed']
+scipy.odr.tests passed (exit code 0), expected ['passed']
+scipy.optimize.tests failed (exit code 1), expected ['failed']
+scipy.optimize._trustregion_constr.tests passed (exit code 0), expected ['passed']
+scipy.signal.tests failed (exit code 1), expected ['failed']
+scipy.sparse.csgraph.tests passed (exit code 0), expected ['passed']
+scipy.sparse.linalg._dsolve.tests passed (exit code 0), expected ['passed']
+scipy.sparse.linalg._eigen.arpack.tests passed (exit code 0), expected ['passed']
+scipy.sparse.linalg._eigen.lobpcg.tests passed (exit code 0), expected ['passed']
+scipy.sparse.linalg._eigen.tests passed (exit code 0), expected ['passed']
+scipy.sparse.linalg._isolve.tests passed (exit code 0), expected ['passed']
+scipy.sparse.linalg.tests passed (exit code 0), expected ['passed']
+scipy.sparse.tests passed (exit code 0), expected ['passed']
+scipy.spatial.tests passed (exit code 0), expected ['passed']
+scipy.spatial.transform.tests passed (exit code 0), expected ['passed']
+scipy.special.tests failed (exit code 1), expected ['failed']
+scipy.stats.tests failed (exit code 1), expected ['failed']
 
 --------------------------------------------------------------------------------
-Grouped by category:
+Grouped by category
 --------------------------------------------------------------------------------
-category failed (10 modules)
-    scipy.fft.tests
+category failed (5 modules)
     scipy.interpolate.tests
-    scipy._lib.tests
-    scipy.ndimage.tests
-    scipy.signal.tests
-    scipy.sparse.linalg._dsolve.tests
-    scipy.sparse.linalg._eigen.arpack.tests
-    scipy.sparse.tests
-    scipy.spatial.tests
-    scipy.special.tests
-category fatal error or timeout (5 modules)
-    scipy.linalg.tests
     scipy.optimize.tests
-    scipy.sparse.linalg._isolve.tests
-    scipy.sparse.linalg.tests
+    scipy.signal.tests
+    scipy.special.tests
     scipy.stats.tests
-category passed (15 modules)
-    scipy._build_utils.tests
+category passed (24 modules)
     scipy.cluster.tests
     scipy.constants.tests
     scipy.fftpack.tests
     scipy.fft._pocketfft.tests
+    scipy.fft.tests
     scipy.io.arff.tests
     scipy.io._harwell_boeing.tests
     scipy.io.matlab.tests
+    scipy._lib.tests
+    scipy.linalg.tests
     scipy.misc.tests
+    scipy.ndimage.tests
     scipy.odr.tests
     scipy.optimize._trustregion_constr.tests
     scipy.sparse.csgraph.tests
+    scipy.sparse.linalg._dsolve.tests
+    scipy.sparse.linalg._eigen.arpack.tests
     scipy.sparse.linalg._eigen.lobpcg.tests
     scipy.sparse.linalg._eigen.tests
+    scipy.sparse.linalg._isolve.tests
+    scipy.sparse.linalg.tests
+    scipy.sparse.tests
+    scipy.spatial.tests
     scipy.spatial.transform.tests
-category pytest usage error (1 modules)
+category pytest usage error (2 modules)
+    scipy._build_utils.tests
     scipy.integrate._ivp.tests
 category tests collection error (2 modules)
     scipy.integrate.tests
