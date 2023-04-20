@@ -7,7 +7,7 @@ You can run all tests by module like this:
 python run-tests-by-modules.py
 ```
 
-## Up-to-date status
+# Up-to-date status
 
 See `expected_tests_results` in
 [run-tests-by-module.py](./run-tests-by-module.py) and
