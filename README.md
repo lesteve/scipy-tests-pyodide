@@ -1,6 +1,6 @@
 # Description
 
-Proof of concept repo to run the scipy tests in Pyodide.
+Repo to run the scipy tests in Pyodide.
 
 You can run all tests by module like this:
 ```bash
@@ -9,36 +9,11 @@ python run-tests-by-modules.py
 
 # Manually curated list of issues
 
-## Pyodide fatal error investigation:
-
-- `scipy.linalg` https://github.com/lesteve/scipy-tests-pyodide/pull/2
-- `scipy.sparse` https://github.com/lesteve/scipy-tests-pyodide/issues/3
-- `scipy.stats` https://github.com/lesteve/scipy-tests-pyodide/pull/4
-- `scipy.optimize.tests` https://github.com/lesteve/scipy-tests-pyodide/issues/12
-
-## Pyodide failures investigation
-
-- `scipy.interpolate.tests` https://github.com/lesteve/scipy-tests-pyodide/issues/13
-- `scipy.signal.tests` https://github.com/lesteve/scipy-tests-pyodide/pull/5
-- `scipy.special.tests` https://github.com/lesteve/scipy-tests-pyodide/issues/15
-
-## Expected failures due to Pyodide limitations
-
-See xfailed tests in [conftest.py](./conftest.py).
-
-## Other issues
-
-Some tests need built extension, that are not built for now in pyodide (see
-this
-[patch](https://github.com/pyodide/pyodide/blob/main/packages/scipy/patches/0010-skip-fortran-fails-to-link.patch)
-for more details). These show up as tests collection error below.
-
-`scipy.integrate._ivp.tests` shows up a pytest usage error because there is no
-`__init__.py` for this module.
+https://hackmd.io/9cbsykxyT9mstqfW0EV5ug?view
 
 ## Results summary by modules
 
-2023-04-18
+As of 2023-04-18
 
 ```
 ================================================================================
