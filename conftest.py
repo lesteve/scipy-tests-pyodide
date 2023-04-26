@@ -83,6 +83,11 @@ tests_to_mark = [
     ),
     ("test_sampling.py::test_threading_behaviour", xfail, thread_msg),
     ("test_stats.py::TestMGCStat.test_workers", xfail, process_msg),
+    (
+        "test_stats.py::TestKSTwoSamples.testLargeBoth",
+        skip,
+        "test taking > 5 minutes after scipy 1.10.1 update",
+    ),
 ]
 
 
