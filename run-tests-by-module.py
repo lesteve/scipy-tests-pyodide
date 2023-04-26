@@ -9,7 +9,7 @@ import asyncio
 expected_test_results = {
     # No idea why scipy._build_utils.tests started to have pytest usage error
     # but this is not crucial at all so ignoring it for now
-    "scipy._build_utils.tests": ["passed", "pytest usage error"],
+    "scipy._build_utils.tests": ["passed"],
     "scipy.cluster.tests": ["passed"],
     "scipy.constants.tests": ["passed"],
     "scipy.fftpack.tests": ["passed"],
