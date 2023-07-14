@@ -4,6 +4,10 @@ import pytest
 xfail = pytest.mark.xfail
 skip = pytest.mark.skip
 
+fp_exception_msg = (
+    "no floating point exceptions, "
+    "see https://github.com/numpy/numpy/pull/21895#issuecomment-1311525881"
+)
 process_msg = "no process support"
 thread_msg = "no thread support"
 signature_mismatch_msg = "signature mismatch"
@@ -21,6 +25,7 @@ tests_to_mark = [
     ("test__util.py::test_mapwrapper_parallel", xfail, process_msg),
     ("test_ccallback.py::test_threadsafety", xfail, thread_msg),
     ("test_import_cycles.py::test_modules_importable", xfail, process_msg),
+    ("test_import_cycles.py::test_public_modules_importable", xfail, process_msg),
     # scipy/fft/tests
     ("test_fft_function.py::test_fft_function", xfail, process_msg),
     ("test_multithreading.py::test_threaded_same", xfail, thread_msg),
@@ -65,6 +70,7 @@ tests_to_mark = [
     ("test_linsolve.py::TestSplu.test_threads_parallel", xfail, thread_msg),
     ("test_propack", skip, signature_mismatch_msg),
     ("test_sparsetools.py::test_threads", xfail, thread_msg),
+    ("test_array_api.py::test_sparse_dense_divide", xfail, fp_exception_msg),
     # scipy/spatial/tests
     (
         "test_kdtree.py::test_query_ball_point_multithreading",
@@ -87,6 +93,11 @@ tests_to_mark = [
         "test_stats.py::TestKSTwoSamples.testLargeBoth",
         skip,
         "test taking > 5 minutes after scipy 1.10.1 update",
+    ),
+    (
+        "test_multivariate.py::TestMultivariateT.test_cdf_against_generic_integrators",
+        skip,
+        "tplquad integration does not seem to converge",
     ),
 ]
 
