@@ -13,10 +13,16 @@ async function main() {
     pyodide.FS.mkdir(mountDir);
     pyodide.FS.mount(pyodide.FS.filesystems.NODEFS, { root: "." }, mountDir);
 
-    // Copy conftest.py to current dir if it exists
+    // Copy pytest-specific files dir if they exists
     await pyodide.runPythonAsync(`
        import shutil
        import os
+
+       pytest_filenames = ["/mnt/conftest.py", "/mnt/pytest.ini"]
+
+       for filename in pytest_filenames:
+           if os.path.exists(filename):
+               shutil.copy(filename, ".")
 
        conftest_filename = "/mnt/conftest.py"
        if os.path.exists(conftest_filename):
@@ -37,7 +43,7 @@ async function main() {
        except ValueError:
            print('Hoping scipy tests are included in the scipy wheel')
        
-       await micropip.install('pytest-repeat')
+       # await micropip.install('pytest-repeat')
 
        pkg_list = micropip.list()
        print(pkg_list)
