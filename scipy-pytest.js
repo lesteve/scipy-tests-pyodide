@@ -42,8 +42,6 @@ async function main() {
            await micropip.install('scipy-tests')
        except ValueError:
            print('Hoping scipy tests are included in the scipy wheel')
-       
-       # await micropip.install('pytest-repeat')
 
        pkg_list = micropip.list()
        print(pkg_list)
