@@ -5,10 +5,8 @@ import asyncio
 
 # Test submodules are from the output of the command run from the scikit-learn
 # root folder:
-# find sklearn -name tests | sort | perl -pe 's@/@.@g'
+# find scipy -name tests | sort | perl -pe 's@/@.@g'
 expected_test_results = {
-    # No idea why scipy._build_utils.tests started to have pytest usage error
-    # but this is not crucial at all so ignoring it for now
     "scipy._build_utils.tests": ["passed"],
     "scipy.cluster.tests": ["passed"],
     "scipy.constants.tests": ["passed"],
@@ -16,12 +14,12 @@ expected_test_results = {
     "scipy.fft._pocketfft.tests": ["passed"],
     "scipy.fft.tests": ["passed"],
     "scipy.integrate._ivp.tests": ["passed"],
-    "scipy.integrate.tests": ["tests collection error"],
+    "scipy.integrate.tests": ["failed"],
     "scipy.interpolate.tests": ["failed"],
     "scipy.io.arff.tests": ["passed"],
     "scipy.io._harwell_boeing.tests": ["passed"],
     "scipy.io.matlab.tests": ["passed"],
-    "scipy.io.tests": ["tests collection error"],
+    "scipy.io.tests": ["failed"],
     "scipy._lib.tests": ["passed"],
     "scipy.linalg.tests": ["passed"],
     "scipy.misc.tests": ["passed"],

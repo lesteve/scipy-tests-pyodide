@@ -36,6 +36,19 @@ tests_to_mark = [
     ),
     ("test_numpy.py::TestFFTThreadSafe", xfail, thread_msg),
     ("test_numpy.py::test_multiprocess", xfail, process_msg),
+    # scipy/integrate tests
+    ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
+    ("test_quadpack.py.+test_variable_limits", skip, memory_corruption_msg),
+    (
+        "test_quadpack.py.+test_fixed_limits",
+        skip,
+        "test does not complete in 20 minutes",
+    ),
+    (
+        "test_quadpack.py.+triple_integral_improper",
+        skip,
+        "parametrized tests that all fail and take ~9 minutes overall",
+    ),
     # scipy/linalg tests
     ("test_blas.+test_complex_dotu", skip, signature_mismatch_msg),
     ("test_cython_blas.+complex", skip, signature_mismatch_msg),
