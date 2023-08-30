@@ -13,7 +13,7 @@ async function main() {
     pyodide.FS.mkdir(mountDir);
     pyodide.FS.mount(pyodide.FS.filesystems.NODEFS, { root: "." }, mountDir);
 
-    // Copy pytest-specific files dir if they exists
+    // Copy pytest-specific files dir if they exist
     await pyodide.runPythonAsync(`
        import shutil
        import os
