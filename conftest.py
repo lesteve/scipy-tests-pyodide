@@ -106,17 +106,17 @@ tests_to_mark = [
     # scipy/special/tests
     ("test_cython_special.py::test_cython_api.+erfinv", skip, temporary_jspi_msg),
     (
-        "::TestInverseErrorFunction.test_domain_bounds.+erfinv.+(below|above)",
+        "test_erfinv.py::TestInverseErrorFunction.test_domain_bounds.+erfinv.+(below|above)",
         skip,
         temporary_jspi_msg,
     ),
     (
-        "::test_nan_inputs.+powm1",
+        "test_nan_inputs.py::test_nan_inputs.+powm1",
         skip,
         temporary_jspi_msg,
     ),
     (
-        "::test_powm1.+(nan|inf)",
+        "test_powm1.py::test_powm1.+(nan|inf)",
         skip,
         temporary_jspi_msg,
     ),
