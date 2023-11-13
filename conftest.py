@@ -104,7 +104,22 @@ tests_to_mark = [
     ),
     ("test_kdtree.py::test_ckdtree_parallel", xfail, thread_msg),
     # scipy/special/tests
-    ("::test_cython_api.+erfinv", skip, temporary_jspi_msg),
+    ("test_cython_special.py::test_cython_api.+erfinv", skip, temporary_jspi_msg),
+    (
+        "::TestInverseErrorFunction.test_domain_bounds.+erfinv.+(below|above)",
+        skip,
+        temporary_jspi_msg,
+    ),
+    (
+        "::test_nan_inputs.+powm1",
+        skip,
+        temporary_jspi_msg,
+    ),
+    (
+        "::test_powm1.+(nan|inf)",
+        skip,
+        temporary_jspi_msg,
+    ),
     # scipy/stats/tests
     ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
     ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),
@@ -131,6 +146,16 @@ tests_to_mark = [
         skip,
         temporary_jspi_msg,
     ),
+    (
+        "test_distributions.py::TestStudentizedRange.+test_ppf_against_tables",
+        skip,
+        temporary_jspi_msg,
+    ),
+    (
+        "test_hypotests.py::TestTukeyHSD",
+        skip,
+        temporary_jspi_msg,
+    ),
 ]
 
 
@@ -141,4 +166,5 @@ def pytest_collection_modifyitems(config, items):
         full_name = f"{path}::{name}"
         for pattern, mark, reason in tests_to_mark:
             if re.search(pattern, full_name):
+                print(full_name)
                 item.add_marker(mark(reason=reason))
