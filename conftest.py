@@ -12,7 +12,9 @@ process_msg = "no process support"
 thread_msg = "no thread support"
 signature_mismatch_msg = "signature mismatch"
 memory_corruption_msg = "memory corruption"
-temporary_jspi_msg = "JSPI temporary skipping, see https://github.com/pyodide/pyodide/issues/4249"
+temporary_jspi_msg = (
+    "JSPI temporary skipping, see https://github.com/pyodide/pyodide/issues/4249"
+)
 
 tests_to_mark = [
     # scipy/_lib/tests
@@ -82,7 +84,6 @@ tests_to_mark = [
     ("test_optimize.py::test_cobyla_threadsafe", xfail, thread_msg),
     ("test_optimize.py::TestBrute.test_workers", xfail, process_msg),
     ("test_zeros.py::.+(gh3089_8394|gh18171)", skip, temporary_jspi_msg),
-
     # scipy/signal/tests
     (
         "test_signaltools.py::TestMedFilt.test_medfilt2d_parallel",
@@ -102,10 +103,8 @@ tests_to_mark = [
         thread_msg,
     ),
     ("test_kdtree.py::test_ckdtree_parallel", xfail, thread_msg),
-
     # scipy/special/tests
     ("::test_cython_api.+erfinv", skip, temporary_jspi_msg),
-
     # scipy/stats/tests
     ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
     ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),
@@ -127,7 +126,11 @@ tests_to_mark = [
         skip,
         "tplquad integration does not seem to converge",
     ),
-    ("test_continuous_basic.py::.+studentized_range-args96-isf", skip, temporary_jspi_msg)
+    (
+        "test_continuous_basic.py::.+studentized_range-args96-isf",
+        skip,
+        temporary_jspi_msg,
+    ),
 ]
 
 
