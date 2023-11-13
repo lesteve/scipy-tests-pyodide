@@ -12,6 +12,7 @@ process_msg = "no process support"
 thread_msg = "no thread support"
 signature_mismatch_msg = "signature mismatch"
 memory_corruption_msg = "memory corruption"
+temporary_jspi_msg = "JSPI temporary skipping, see https://github.com/pyodide/pyodide/issues/4249"
 
 tests_to_mark = [
     # scipy/_lib/tests
@@ -34,6 +35,12 @@ tests_to_mark = [
         xfail,
         thread_msg,
     ),
+    ("test_multithreading.py::test_threaded_same", skip, temporary_jspi_msg),
+    (
+        "test_multithreading.py::test_mixed_threads_processes",
+        skip,
+        temporary_jspi_msg,
+    ),
     ("test_numpy.py::TestFFTThreadSafe", xfail, thread_msg),
     ("test_numpy.py::test_multiprocess", xfail, process_msg),
     # scipy/integrate tests
@@ -49,6 +56,8 @@ tests_to_mark = [
         skip,
         "parametrized tests that all fail and take ~9 minutes overall",
     ),
+    # scipy/linalg/_dsolve tests
+    ("test_linsolve.py::TestSplu.+(spilu_nnz0|splu_basic)", skip, temporary_jspi_msg),
     # scipy/linalg tests
     ("test_blas.+test_complex_dotu", skip, signature_mismatch_msg),
     ("test_cython_blas.+complex", skip, signature_mismatch_msg),
@@ -72,6 +81,8 @@ tests_to_mark = [
     ("test_minpack.py::TestLeastSq.test_concurrent+", xfail, process_msg),
     ("test_optimize.py::test_cobyla_threadsafe", xfail, thread_msg),
     ("test_optimize.py::TestBrute.test_workers", xfail, process_msg),
+    ("test_zeros.py::.+(gh3089_8394|gh18171)", skip, temporary_jspi_msg),
+
     # scipy/signal/tests
     (
         "test_signaltools.py::TestMedFilt.test_medfilt2d_parallel",
@@ -91,6 +102,10 @@ tests_to_mark = [
         thread_msg,
     ),
     ("test_kdtree.py::test_ckdtree_parallel", xfail, thread_msg),
+
+    # scipy/special/tests
+    ("::test_cython_api.+erfinv", skip, temporary_jspi_msg),
+
     # scipy/stats/tests
     ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
     ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),
@@ -112,6 +127,7 @@ tests_to_mark = [
         skip,
         "tplquad integration does not seem to converge",
     ),
+    ("test_continuous_basic.py::.+studentized_range-args96-isf", skip, temporary_jspi_msg)
 ]
 
 
