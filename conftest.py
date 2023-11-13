@@ -156,6 +156,27 @@ tests_to_mark = [
         skip,
         temporary_jspi_msg,
     ),
+    (
+        "test_qmc.py::TestUtils.+test_discrepancy_parallel",
+        skip,
+        temporary_jspi_msg,
+    ),
+    (
+        "test_qmc.py::TestVDC.+test_van_der_corput",
+        skip,
+        temporary_jspi_msg,
+    ),
+    (
+        "test_qmc.py::TestHalton.+test_workers",
+        skip,
+        temporary_jspi_msg,
+    ),
+    (
+        "test_qmc.py::TestVDC.+test_van_der_corput",
+        skip,
+        temporary_jspi_msg,
+    ),
+
 ]
 
 
