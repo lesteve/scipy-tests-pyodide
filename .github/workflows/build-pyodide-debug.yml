@@ -64,7 +64,7 @@ jobs:
         shell: bash -l {0}
         run: |
           sudo apt install -y build-essential git pkg-config
-          conda install -y nodejs ccache f2c swig make patch pkg-config texinfo autoconf automake libtool
+          conda install -y nodejs ccache f2c swig make patch texinfo autoconf automake libtool
 
       - name: clone pyodide repo
         shell: bash -l {0}
