@@ -7,7 +7,6 @@ import asyncio
 # root folder:
 # find scipy -name tests | sort | perl -pe 's@/@.@g'
 expected_test_results = {
-    "scipy._build_utils.tests": ["passed"],
     "scipy.cluster.tests": ["passed"],
     "scipy.constants.tests": ["passed"],
     "scipy.fftpack.tests": ["passed"],
