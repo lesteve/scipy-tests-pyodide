@@ -47,7 +47,7 @@ def update_scikit_learn():
 
     meta["source"]["url"] = url
     meta["source"]["sha256"] = sha256
-    meta["package"]["version"] = f"1.4.0.dev+{commit_sha}"
+    meta["package"]["version"] = "1.4.0.dev"
     meta["build"]["unvendor-tests"] = False
     yaml.dump(meta, meta_path.open("w"))
 
