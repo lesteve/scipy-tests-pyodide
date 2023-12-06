@@ -15,9 +15,6 @@ memory_corruption_msg = "memory corruption"
 temporary_jspi_msg = (
     "JSPI temporary skipping, see https://github.com/pyodide/pyodide/issues/4249"
 )
-temporary_meson_msg = (
-    "temporary skipping after switch to meson, see https://github.com/pyodide/pyodide/issues/4310"
-)
 
 tests_to_mark = [
     # scipy/_lib/tests
@@ -99,7 +96,6 @@ tests_to_mark = [
     ("test_propack", skip, signature_mismatch_msg),
     ("test_sparsetools.py::test_threads", xfail, thread_msg),
     ("test_array_api.py::test_sparse_dense_divide", xfail, fp_exception_msg),
-    ("test_matfuncs.py::TestExpM.test_logm_consistency", skip, temporary_meson_msg),
     # scipy/spatial/tests
     (
         "test_kdtree.py::test_query_ball_point_multithreading",
@@ -180,7 +176,6 @@ tests_to_mark = [
         skip,
         temporary_jspi_msg,
     ),
-
 ]
 
 
