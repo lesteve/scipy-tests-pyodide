@@ -75,7 +75,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Cache ccache output
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             /tmp/ccache
@@ -134,7 +134,7 @@ jobs:
         run: ls -lh pyodide/dist/
 
       - name: Store artifacts build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build
           path: |
