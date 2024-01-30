@@ -47,7 +47,7 @@ async function main() {
        print(pkg_list)
     `);
 
-    await pyodide.runPythonAsync("import micropip; micropip.install('pytest')");
+    await pyodide.runPythonAsync("import micropip; micropip.install('pytest<8')");
     // somehow this import is needed not sure why import pytest is not enough...
     await pyodide.runPythonAsync("micropip.install('tomli')");
     let pytest = pyodide.pyimport("pytest");
