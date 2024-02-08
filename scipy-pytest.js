@@ -29,9 +29,6 @@ async function main() {
            shutil.copy(conftest_filename, ".")
     `);
 
-    // Some scipy tests need distutils, which needs to be loaded because it has
-    // been unvendored from the standard library in Pyodide
-    await pyodide.loadPackage(["distutils"]);
     await pyodide.loadPackage(["micropip"]);
     await pyodide.runPythonAsync(`
        import micropip
