@@ -121,6 +121,8 @@ tests_to_mark = [
     ),
     ("test_kdtree.py::test_ckdtree_parallel", xfail, thread_msg),
     # scipy/special/tests
+    ("test_exponential_integrals.py::TestExp1.test_branch_cut", xfail, "TODO maybe float128 support since +0 and -0 difference"),
+    ("test_round.py::test_add_round_(up|down)", xfail, "TODO small floting point difference maybe lack of floating point support for controlling rounding https://github.com/WebAssembly/design/issues/1384"),
     # scipy/stats/tests
     ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
     ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),

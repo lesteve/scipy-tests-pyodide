@@ -37,7 +37,7 @@ expected_test_results = {
     "scipy.sparse.tests": ["passed"],
     "scipy.spatial.tests": ["passed"],
     "scipy.spatial.transform.tests": ["passed"],
-    "scipy.special.tests": ["failed"],
+    "scipy.special.tests": ["passed"],
     "scipy.stats.tests": ["failed"],
 }
 
