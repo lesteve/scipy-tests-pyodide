@@ -187,6 +187,117 @@ tests_to_mark = [
         skip,
         "tplquad integration does not seem to converge",
     ),
+    (
+        "test_continuous_basic.py::test_methods_with_lists.+args96",
+        xfail,
+        "TODO brentq fails to converge",
+    ),
+    (
+        "test_distributions.py::TestStudentizedRange.test_(cdf|ppf)_against_tables",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        # parametrized tests from 0 to 72, a few pass but xfailing all the test cases for now
+        "test_distributions.py::TestStudentizedRange.test_(cdf|pdf)_against_mp",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_distributions.py::TestStudentizedRange.test_pdf_integration",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_distributions.py::TestStudentizedRange.test_cdf_against_r.+r_case_result[01]",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_distributions.py::TestStudentizedRange.test_infinite_df",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_distributions.py::TestStudentizedRange.test_clipping",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_hypotests.py::TestTukeyHSD.test_(compare|engineering_stat_handbook|rand_symm)",
+        xfail,
+        "TODO raise error with NaNs",
+    ),
+    (
+        "test_hypotests.py::TestTukeyHSD.test_2_args_ttest",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_kdeoth.py::test_kde_[12]d",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestCovariance.test_mvn_with_covariance_cdf.+Precision-size1",
+        xfail,
+        "TODO small floating point difference 6e-7 relative diff instead of 1e-7",
+    ),
+    (
+        "test_multivariate.py::TestMultivariateNormal.test_logcdf_default_values",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestMultivariateNormal.test_broadcasting",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestMultivariateNormal.test_normal_1D",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestMultivariateNormal.test_R_values",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestMultivariateNormal.test_cdf_with_lower_limit",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestMultivariateT.test_cdf_against_multivariate_normal",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestMultivariateNormalQMC.test_validations",
+        xfail,
+        "TODO did not raise maybe no floating point exception support?",
+    ),
+    (
+        "test_multivariate.py::TestMultivariateNormalQMC.test_MultivariateNormalQMCDegenerate",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_stats.py::TestKSTwoSamples.test_some_code_paths",
+        xfail,
+        "TODO did not raise maybe no floating point exception support?",
+    ),
+    (
+        "test_stats.py::TestGeometricStandardDeviation.test_raises_value_error",
+        xfail,
+        "TODO did not raise maybe no floating point exception support?",
+    ),
+    (
+        "test_stats.py::TestBrunnerMunzel.test_brunnermunzel_normal_dist",
+        xfail,
+        fp_exception_msg,
+    ),
 ]
 
 

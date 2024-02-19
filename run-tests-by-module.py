@@ -38,7 +38,7 @@ expected_test_results = {
     "scipy.spatial.tests": ["passed"],
     "scipy.spatial.transform.tests": ["passed"],
     "scipy.special.tests": ["passed"],
-    "scipy.stats.tests": ["failed"],
+    "scipy.stats.tests": ["passed"],
 }
 
 test_submodules = expected_test_results.keys()
