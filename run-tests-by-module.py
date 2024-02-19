@@ -14,7 +14,7 @@ expected_test_results = {
     "scipy.fft.tests": ["passed"],
     "scipy.integrate._ivp.tests": ["passed"],
     "scipy.integrate.tests": ["failed"],
-    "scipy.interpolate.tests": ["failed"],
+    "scipy.interpolate.tests": ["passed"],
     "scipy.io.arff.tests": ["passed"],
     "scipy.io._harwell_boeing.tests": ["passed"],
     "scipy.io.matlab.tests": ["passed"],

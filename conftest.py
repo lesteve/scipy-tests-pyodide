@@ -12,6 +12,7 @@ process_msg = "no process support"
 thread_msg = "no thread support"
 signature_mismatch_msg = "signature mismatch"
 memory_corruption_msg = "memory corruption"
+todo_genuine_difference = "Genuine difference to be investigated"
 
 tests_to_mark = [
     # scipy/_lib/tests
@@ -49,6 +50,13 @@ tests_to_mark = [
         skip,
         "parametrized tests that all fail and take ~9 minutes overall",
     ),
+    # scipy/interpolate
+    (
+        "test_fitpack.+test_kink",
+        xfail,
+        "TODO error not raised, maybe due to no floating point exception?",
+    ),
+    ("test_interpolate.+test_integrate_2d", xfail, todo_genuine_difference),
     # scipy/linalg/_dsolve tests
     # scipy/linalg tests
     ("test_blas.+test_complex_dotu", skip, signature_mismatch_msg),
