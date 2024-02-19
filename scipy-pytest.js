@@ -44,7 +44,6 @@ async function main() {
        print(pkg_list)
     `);
 
-
     // XXX: some Fortran test modules are removed in Pyodide through a patch
     // https://github.com/pyodide/pyodide/blob/main/packages/scipy/patches/0008-Remove-test-modules-that-fails-to-build.patch
     // In order to avoid import errors during test discovery, we delete the
@@ -63,7 +62,8 @@ async function main() {
       os.unlink(path)
     `);
 
-    await pyodide.runPythonAsync("import micropip; micropip.install('pytest<8')");
+    await pyodide.runPythonAsync(
+        "import micropip; micropip.install(['pytest<8', 'hypothesis'])");
     // somehow this import is needed not sure why import pytest is not enough...
     await pyodide.runPythonAsync("micropip.install('tomli')");
     let pytest = pyodide.pyimport("pytest");

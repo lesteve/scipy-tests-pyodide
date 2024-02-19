@@ -35,8 +35,8 @@ tests_to_mark = [
         xfail,
         thread_msg,
     ),
-    ("test_numpy.py::TestFFTThreadSafe", xfail, thread_msg),
-    ("test_numpy.py::test_multiprocess", xfail, process_msg),
+    ("::TestFFTThreadSafe", xfail, thread_msg),
+    ("::test_multiprocess", xfail, process_msg),
     # scipy/integrate tests
     ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
     ("test_quadpack.py.+test_variable_limits", skip, todo_memory_corruption_msgt),
@@ -147,6 +147,8 @@ tests_to_mark = [
     ("test_linsolve.py::TestSplu.test_threads_parallel", xfail, thread_msg),
     ("test_propack", skip, todo_signature_mismatch_msg),
     ("test_sparsetools.py::test_threads", xfail, thread_msg),
+    # scipy/sparse/csgraph/tests
+    ("test_shortest_path.py::test_gh_17782_segfault", xfail, thread_msg),
     # scipy/spatial/tests
     (
         "test_kdtree.py::test_query_ball_point_multithreading",
