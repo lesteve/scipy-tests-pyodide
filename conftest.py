@@ -274,12 +274,12 @@ tests_to_mark = [
         todo_genuine_difference_msg,
     ),
     (
-        "test_multivariate.py::TestMultivariateNormalQMC.test_validations",
+        "test_qmc.py::TestMultivariateNormalQMC.test_validations",
         xfail,
         "TODO did not raise maybe no floating point exception support?",
     ),
     (
-        "test_multivariate.py::TestMultivariateNormalQMC.test_MultivariateNormalQMCDegenerate",
+        "test_qmc.py::TestMultivariateNormalQMC.test_MultivariateNormalQMCDegenerate",
         xfail,
         todo_genuine_difference_msg,
     ),
