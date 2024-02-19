@@ -12,7 +12,7 @@ process_msg = "no process support"
 thread_msg = "no thread support"
 signature_mismatch_msg = "signature mismatch"
 memory_corruption_msg = "memory corruption"
-todo_genuine_difference = "Genuine difference to be investigated"
+todo_genuine_difference_msg = "Genuine difference to be investigated"
 
 tests_to_mark = [
     # scipy/_lib/tests
@@ -50,13 +50,48 @@ tests_to_mark = [
         skip,
         "parametrized tests that all fail and take ~9 minutes overall",
     ),
+    (
+        "test_quadpack.py.+TestMultivariateCtypesQuad.test_threadsafety",
+        xfail,
+        thread_msg,
+    ),
+    (
+        "test_quadpack.py.+TestCtypesQuad.test_ctypes.*",
+        xfail,
+        "Relying on finding libm.so shared library",
+    ),
+    (
+        "test_quadpack.py.+TestQuad.test_double_integral.*",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_quadpack.py.+TestQuad.test_triple_integral",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_quadpack.py.+TestNQuad.test_square.*ranges_and_opts",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_quadrature.py.+TestQMCQuad.test_basic",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
+    (
+        "test_quadrature.py.+TestQMCQuad.test_sign",
+        xfail,
+        todo_genuine_difference_msg,
+    ),
     # scipy/interpolate
     (
         "test_fitpack.+test_kink",
         xfail,
         "TODO error not raised, maybe due to no floating point exception?",
     ),
-    ("test_interpolate.+test_integrate_2d", xfail, todo_genuine_difference),
+    ("test_interpolate.+test_integrate_2d", xfail, todo_genuine_difference_msg),
     # scipy/linalg/_dsolve tests
     # scipy/linalg tests
     ("test_blas.+test_complex_dotu", skip, signature_mismatch_msg),
@@ -99,7 +134,7 @@ tests_to_mark = [
     (
         "test_minpack.py::TestFSolve.test_reentrant_Dfunc",
         xfail,
-        todo_genuine_difference,
+        todo_genuine_difference_msg,
     ),
     # scipy/signal/tests
     (
@@ -121,8 +156,16 @@ tests_to_mark = [
     ),
     ("test_kdtree.py::test_ckdtree_parallel", xfail, thread_msg),
     # scipy/special/tests
-    ("test_exponential_integrals.py::TestExp1.test_branch_cut", xfail, "TODO maybe float128 support since +0 and -0 difference"),
-    ("test_round.py::test_add_round_(up|down)", xfail, "TODO small floting point difference maybe lack of floating point support for controlling rounding https://github.com/WebAssembly/design/issues/1384"),
+    (
+        "test_exponential_integrals.py::TestExp1.test_branch_cut",
+        xfail,
+        "TODO maybe float128 support since +0 and -0 difference",
+    ),
+    (
+        "test_round.py::test_add_round_(up|down)",
+        xfail,
+        "TODO small floting point difference maybe lack of floating point support for controlling rounding https://github.com/WebAssembly/design/issues/1384",
+    ),
     # scipy/stats/tests
     ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
     ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),
