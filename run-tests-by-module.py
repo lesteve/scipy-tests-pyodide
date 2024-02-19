@@ -24,7 +24,7 @@ expected_test_results = {
     "scipy.misc.tests": ["passed"],
     "scipy.ndimage.tests": ["passed"],
     "scipy.odr.tests": ["passed"],
-    "scipy.optimize.tests": ["failed"],
+    "scipy.optimize.tests": ["passed"],
     "scipy.optimize._trustregion_constr.tests": ["passed"],
     "scipy.signal.tests": ["passed"],
     "scipy.sparse.csgraph.tests": ["passed"],

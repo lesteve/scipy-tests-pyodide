@@ -76,11 +76,31 @@ tests_to_mark = [
         xfail,
         process_msg,
     ),
+    (
+        "test__shgo.py.+test_19_parallelization",
+        xfail,
+        process_msg,
+    ),
+    (
+        "test__shgo.py.+",
+        xfail,
+        "TODO maybe failing due to 32bit since this test is skipped for win32?",
+    ),
     ("test_minpack.py.+test_reentrant_func", skip, memory_corruption_msg),
     ("test_minpack.py::TestFSolve.test_concurrent.+", xfail, process_msg),
     ("test_minpack.py::TestLeastSq.test_concurrent+", xfail, process_msg),
     ("test_optimize.py::test_cobyla_threadsafe", xfail, thread_msg),
     ("test_optimize.py::TestBrute.test_workers", xfail, process_msg),
+    (
+        "test_linprog.py::TestLinprogSimplexNoPresolve.test_bounds_infeasible_2",
+        xfail,
+        "TODO no warnings emitted maybe due to no floating point exception?",
+    ),
+    (
+        "test_minpack.py::TestFSolve.test_reentrant_Dfunc",
+        xfail,
+        todo_genuine_difference,
+    ),
     # scipy/signal/tests
     (
         "test_signaltools.py::TestMedFilt.test_medfilt2d_parallel",
