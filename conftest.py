@@ -10,9 +10,9 @@ fp_exception_msg = (
 )
 process_msg = "no process support"
 thread_msg = "no thread support"
-signature_mismatch_msg = "signature mismatch"
-memory_corruption_msg = "memory corruption"
-todo_genuine_difference_msg = "Genuine difference to be investigated"
+todo_signature_mismatch_msg = "TODO signature mismatch"
+todo_memory_corruption_msgt = "TODO memory corruption"
+todo_genuine_difference_msg = "TODO genuine difference to be investigated"
 
 tests_to_mark = [
     # scipy/_lib/tests
@@ -39,16 +39,16 @@ tests_to_mark = [
     ("test_numpy.py::test_multiprocess", xfail, process_msg),
     # scipy/integrate tests
     ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
-    ("test_quadpack.py.+test_variable_limits", skip, memory_corruption_msg),
+    ("test_quadpack.py.+test_variable_limits", skip, todo_memory_corruption_msgt),
     (
         "test_quadpack.py.+test_fixed_limits",
         skip,
-        "test does not complete in 20 minutes",
+        "TODO test does not complete in 20 minutes",
     ),
     (
         "test_quadpack.py.+triple_integral_improper",
         skip,
-        "parametrized tests that all fail and take ~9 minutes overall",
+        "TODO parametrized tests that all fail and take ~9 minutes overall",
     ),
     (
         "test_quadpack.py.+TestMultivariateCtypesQuad.test_threadsafety",
@@ -58,7 +58,7 @@ tests_to_mark = [
     (
         "test_quadpack.py.+TestCtypesQuad.test_ctypes.*",
         xfail,
-        "Relying on finding libm.so shared library",
+        "Test relying on finding libm.so shared library",
     ),
     (
         "test_quadpack.py.+TestQuad.test_double_integral.*",
@@ -92,11 +92,10 @@ tests_to_mark = [
         "TODO error not raised, maybe due to no floating point exception?",
     ),
     ("test_interpolate.+test_integrate_2d", xfail, todo_genuine_difference_msg),
-    # scipy/linalg/_dsolve tests
     # scipy/linalg tests
-    ("test_blas.+test_complex_dotu", skip, signature_mismatch_msg),
-    ("test_cython_blas.+complex", skip, signature_mismatch_msg),
-    ("test_lapack.py.+larfg_larf", skip, signature_mismatch_msg),
+    ("test_blas.+test_complex_dotu", skip, todo_signature_mismatch_msg),
+    ("test_cython_blas.+complex", skip, todo_signature_mismatch_msg),
+    ("test_lapack.py.+larfg_larf", skip, todo_signature_mismatch_msg),
     # scipy/ndimage/tests
     ("test_filters.py::TestThreading", xfail, thread_msg),
     # scipy/optimize/tests
@@ -119,23 +118,23 @@ tests_to_mark = [
     (
         "test__shgo.py.+",
         xfail,
-        "TODO maybe failing due to 32bit since this test is skipped for win32?",
+        "Test failing on 32bit (skipped on win32)",
     ),
-    ("test_minpack.py.+test_reentrant_func", skip, memory_corruption_msg),
-    ("test_minpack.py::TestFSolve.test_concurrent.+", xfail, process_msg),
-    ("test_minpack.py::TestLeastSq.test_concurrent+", xfail, process_msg),
-    ("test_optimize.py::test_cobyla_threadsafe", xfail, thread_msg),
-    ("test_optimize.py::TestBrute.test_workers", xfail, process_msg),
     (
         "test_linprog.py::TestLinprogSimplexNoPresolve.test_bounds_infeasible_2",
         xfail,
         "TODO no warnings emitted maybe due to no floating point exception?",
     ),
+    ("test_minpack.py.+test_reentrant_func", skip, todo_memory_corruption_msgt),
+    ("test_minpack.py::TestFSolve.test_concurrent.+", xfail, process_msg),
+    ("test_minpack.py::TestLeastSq.test_concurrent+", xfail, process_msg),
     (
         "test_minpack.py::TestFSolve.test_reentrant_Dfunc",
         xfail,
         todo_genuine_difference_msg,
     ),
+    ("test_optimize.py::test_cobyla_threadsafe", xfail, thread_msg),
+    ("test_optimize.py::TestBrute.test_workers", xfail, process_msg),
     # scipy/signal/tests
     (
         "test_signaltools.py::TestMedFilt.test_medfilt2d_parallel",
@@ -144,10 +143,10 @@ tests_to_mark = [
     ),
     # scipy/sparse/tests
     ("test_arpack.py::test_parallel_threads", xfail, thread_msg),
-    ("test_linsolve.py::TestSplu.test_threads_parallel", xfail, thread_msg),
-    ("test_propack", skip, signature_mismatch_msg),
-    ("test_sparsetools.py::test_threads", xfail, thread_msg),
     ("test_array_api.py::test_sparse_dense_divide", xfail, fp_exception_msg),
+    ("test_linsolve.py::TestSplu.test_threads_parallel", xfail, thread_msg),
+    ("test_propack", skip, todo_signature_mismatch_msg),
+    ("test_sparsetools.py::test_threads", xfail, thread_msg),
     # scipy/spatial/tests
     (
         "test_kdtree.py::test_query_ball_point_multithreading",
@@ -159,34 +158,16 @@ tests_to_mark = [
     (
         "test_exponential_integrals.py::TestExp1.test_branch_cut",
         xfail,
-        "TODO maybe float128 support since +0 and -0 difference",
+        "TODO maybe float support since +0 and -0 difference",
     ),
     (
         "test_round.py::test_add_round_(up|down)",
         xfail,
-        "TODO small floting point difference maybe lack of floating point support for controlling rounding https://github.com/WebAssembly/design/issues/1384",
+        "TODO small floating point difference, maybe due to lack of floating point "
+        "support for controlling rounding, see "
+        "https://github.com/WebAssembly/design/issues/1384",
     ),
     # scipy/stats/tests
-    ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
-    ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),
-    ("test_qmc.py::TestUtils.test_discrepancy_parallel", xfail, thread_msg),
-    (
-        "test_resampling.+TestMonteCarloHypothesisTest.+test_against_anderson.+logistic",
-        skip,
-        memory_corruption_msg,
-    ),
-    ("test_sampling.py::test_threading_behaviour", xfail, thread_msg),
-    ("test_stats.py::TestMGCStat.test_workers", xfail, process_msg),
-    (
-        "test_stats.py::TestKSTwoSamples.testLargeBoth",
-        skip,
-        "test taking > 5 minutes after scipy 1.10.1 update",
-    ),
-    (
-        "test_multivariate.py::TestMultivariateT.test_cdf_against_generic_integrators",
-        skip,
-        "tplquad integration does not seem to converge",
-    ),
     (
         "test_continuous_basic.py::test_methods_with_lists.+args96",
         xfail,
@@ -226,7 +207,7 @@ tests_to_mark = [
     (
         "test_hypotests.py::TestTukeyHSD.test_(compare|engineering_stat_handbook|rand_symm)",
         xfail,
-        "TODO raise error with NaNs",
+        todo_genuine_difference_msg,
     ),
     (
         "test_hypotests.py::TestTukeyHSD.test_2_args_ttest",
@@ -237,6 +218,11 @@ tests_to_mark = [
         "test_kdeoth.py::test_kde_[12]d",
         xfail,
         todo_genuine_difference_msg,
+    ),
+    (
+        "test_multivariate.py::TestMultivariateT.test_cdf_against_generic_integrators",
+        skip,
+        "TODO tplquad integration does not seem to converge",
     ),
     (
         "test_multivariate.py::TestCovariance.test_mvn_with_covariance_cdf.+Precision-size1",
@@ -273,6 +259,9 @@ tests_to_mark = [
         xfail,
         todo_genuine_difference_msg,
     ),
+    ("test_qmc.py::TestVDC.test_van_der_corput", xfail, thread_msg),
+    ("test_qmc.py::TestHalton.test_workers", xfail, thread_msg),
+    ("test_qmc.py::TestUtils.test_discrepancy_parallel", xfail, thread_msg),
     (
         "test_qmc.py::TestMultivariateNormalQMC.test_validations",
         xfail,
@@ -282,6 +271,18 @@ tests_to_mark = [
         "test_qmc.py::TestMultivariateNormalQMC.test_MultivariateNormalQMCDegenerate",
         xfail,
         todo_genuine_difference_msg,
+    ),
+    (
+        "test_resampling.+TestMonteCarloHypothesisTest.+test_against_anderson.+logistic",
+        skip,
+        todo_memory_corruption_msgt,
+    ),
+    ("test_sampling.py::test_threading_behaviour", xfail, thread_msg),
+    ("test_stats.py::TestMGCStat.test_workers", xfail, process_msg),
+    (
+        "test_stats.py::TestKSTwoSamples.testLargeBoth",
+        skip,
+        "TODO test taking > 5 minutes after scipy 1.10.1 update",
     ),
     (
         "test_stats.py::TestKSTwoSamples.test_some_code_paths",
