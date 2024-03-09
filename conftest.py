@@ -28,6 +28,8 @@ tests_to_mark = [
     ("test_import_cycles.py::test_modules_importable", xfail, process_msg),
     ("test_import_cycles.py::test_public_modules_importable", xfail, process_msg),
     # scipy/fft/tests
+    ("test_basic.py::TestFFTThreadSafe", xfail, thread_msg),
+    ("test_basic.py::test_multiprocess", xfail, process_msg),
     ("test_fft_function.py::test_fft_function", xfail, process_msg),
     ("test_multithreading.py::test_threaded_same", xfail, thread_msg),
     (
@@ -35,8 +37,6 @@ tests_to_mark = [
         xfail,
         thread_msg,
     ),
-    ("test_numpy.py::TestFFTThreadSafe", xfail, thread_msg),
-    ("test_numpy.py::test_multiprocess", xfail, process_msg),
     # scipy/integrate tests
     ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
     ("test_quadpack.py.+test_variable_limits", skip, todo_memory_corruption_msgt),
@@ -85,6 +85,11 @@ tests_to_mark = [
         xfail,
         todo_genuine_difference_msg,
     ),
+    (
+        "test_quadrature.py.+TestTanhSinh.test_accuracy.+case97",
+        xfail,
+        "TODO brentq fails to converge",
+    ),
     # scipy/interpolate
     (
         "test_fitpack.+test_kink",
@@ -92,6 +97,22 @@ tests_to_mark = [
         "TODO error not raised, maybe due to no floating point exception?",
     ),
     ("test_interpolate.+test_integrate_2d", xfail, todo_genuine_difference_msg),
+    # scipy/io
+    (
+        "test_mmio.py::.+fast_matrix_market",
+        xfail,
+        thread_msg,
+    ),
+    (
+        "test_mmio.py::TestMMIOCoordinate.test_precision",
+        xfail,
+        thread_msg,
+    ),
+    (
+        "test_paths.py::TestPaths.test_mmio_(read|write)",
+        xfail,
+        thread_msg,
+    ),
     # scipy/linalg tests
     ("test_blas.+test_complex_dotu", skip, todo_signature_mismatch_msg),
     ("test_cython_blas.+complex", skip, todo_signature_mismatch_msg),
@@ -135,6 +156,11 @@ tests_to_mark = [
     ),
     ("test_optimize.py::test_cobyla_threadsafe", xfail, thread_msg),
     ("test_optimize.py::TestBrute.test_workers", xfail, process_msg),
+    (
+        "test_zeros.py.+TestDifferentiate.test_accuracy.+case97",
+        xfail,
+        "TODO brentq fails to converge",
+    ),
     # scipy/signal/tests
     (
         "test_signaltools.py::TestMedFilt.test_medfilt2d_parallel",
@@ -147,6 +173,8 @@ tests_to_mark = [
     ("test_linsolve.py::TestSplu.test_threads_parallel", xfail, thread_msg),
     ("test_propack", skip, todo_signature_mismatch_msg),
     ("test_sparsetools.py::test_threads", xfail, thread_msg),
+    # scipy/sparse/csgraph/tests
+    ("test_shortest_path.py::test_gh_17782_segfault", xfail, thread_msg),
     # scipy/spatial/tests
     (
         "test_kdtree.py::test_query_ball_point_multithreading",
@@ -169,9 +197,17 @@ tests_to_mark = [
     ),
     # scipy/stats/tests
     (
-        "test_continuous_basic.py::test_methods_with_lists.+args96",
+        "test_continuous_basic.py::test_methods_with_lists.+args9[67]",
         xfail,
         "TODO brentq fails to converge",
+    ),
+    (
+        # This test is skipped for PyPy as well, maybe for a related reason?,
+        # see
+        # https://github.com/conda-forge/scipy-feedstock/pull/196#issuecomment-979317832
+        "test_distributions.py::TestBeta.test_boost_eval_issue_14606",
+        skip,
+        "TODO C++ exception that causes a Pyodide fatal error",
     ),
     (
         "test_distributions.py::TestStudentizedRange.test_(cdf|ppf)_against_tables",
