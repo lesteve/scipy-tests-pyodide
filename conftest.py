@@ -108,6 +108,11 @@ tests_to_mark = [
         xfail,
         thread_msg,
     ),
+    (
+        "test_paths.py::TestPaths.test_mmio_(read|write)",
+        xfail,
+        thread_msg,
+    ),
     # scipy/linalg tests
     ("test_blas.+test_complex_dotu", skip, todo_signature_mismatch_msg),
     ("test_cython_blas.+complex", skip, todo_signature_mismatch_msg),
@@ -192,7 +197,7 @@ tests_to_mark = [
     ),
     # scipy/stats/tests
     (
-        "test_continuous_basic.py::test_methods_with_lists.+args96",
+        "test_continuous_basic.py::test_methods_with_lists.+args9[67]",
         xfail,
         "TODO brentq fails to converge",
     ),
