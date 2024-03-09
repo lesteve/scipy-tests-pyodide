@@ -28,6 +28,8 @@ tests_to_mark = [
     ("test_import_cycles.py::test_modules_importable", xfail, process_msg),
     ("test_import_cycles.py::test_public_modules_importable", xfail, process_msg),
     # scipy/fft/tests
+    ("test_basic.py::TestFFTThreadSafe", xfail, thread_msg),
+    ("test_basic.py::test_multiprocess", xfail, process_msg),
     ("test_fft_function.py::test_fft_function", xfail, process_msg),
     ("test_multithreading.py::test_threaded_same", xfail, thread_msg),
     (
@@ -35,8 +37,6 @@ tests_to_mark = [
         xfail,
         thread_msg,
     ),
-    ("::TestFFTThreadSafe", xfail, thread_msg),
-    ("::test_multiprocess", xfail, process_msg),
     # scipy/integrate tests
     ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
     ("test_quadpack.py.+test_variable_limits", skip, todo_memory_corruption_msgt),
