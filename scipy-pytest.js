@@ -63,9 +63,7 @@ async function main() {
     `);
 
     await pyodide.runPythonAsync(
-        "import micropip; micropip.install(['pytest<8', 'hypothesis'])");
-    // somehow this import is needed not sure why import pytest is not enough...
-    await pyodide.runPythonAsync("micropip.install('tomli')");
+        "import micropip; micropip.install(['pytest', 'hypothesis'])");
     let pytest = pyodide.pyimport("pytest");
     let args = process.argv.slice(2);
     console.log('pytest args:', args);
