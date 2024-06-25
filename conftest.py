@@ -208,11 +208,6 @@ tests_to_mark = [
         xfail,
         todo_genuine_difference_msg,
     ),
-    (
-        "test_resampling.+TestMonteCarloHypothesisTest.+test_against_anderson.+logistic",
-        skip,
-        todo_memory_corruption_msgt,
-    ),
     ("test_sampling.py::test_threading_behaviour", xfail, thread_msg),
     ("test_stats.py::TestMGCStat.test_workers", xfail, process_msg),
     (
