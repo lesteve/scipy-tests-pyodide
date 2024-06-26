@@ -38,7 +38,13 @@ tests_to_mark = [
         thread_msg,
     ),
     # scipy/integrate tests
+
     ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
+    (
+        "test_quadpack.py.+TestCtypesQuad.test_ctypes.*",
+        xfail,
+        "Test relying on finding libm.so shared library",
+    ),
     (
         "test_quadrature.py.+TestQMCQuad.test_basic",
         xfail,
