@@ -38,42 +38,12 @@ tests_to_mark = [
         thread_msg,
     ),
     # scipy/integrate tests
+
     ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
-    ("test_quadpack.py.+test_variable_limits", skip, todo_memory_corruption_msgt),
-    (
-        "test_quadpack.py.+test_fixed_limits",
-        skip,
-        "TODO test does not complete in 20 minutes",
-    ),
-    (
-        "test_quadpack.py.+triple_integral_improper",
-        skip,
-        "TODO parametrized tests that all fail and take ~9 minutes overall",
-    ),
-    (
-        "test_quadpack.py.+TestMultivariateCtypesQuad.test_threadsafety",
-        xfail,
-        thread_msg,
-    ),
     (
         "test_quadpack.py.+TestCtypesQuad.test_ctypes.*",
         xfail,
         "Test relying on finding libm.so shared library",
-    ),
-    (
-        "test_quadpack.py.+TestQuad.test_double_integral.*",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_quadpack.py.+TestQuad.test_triple_integral",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_quadpack.py.+TestNQuad.test_square.*ranges_and_opts",
-        xfail,
-        todo_genuine_difference_msg,
     ),
     (
         "test_quadrature.py.+TestQMCQuad.test_basic",
@@ -85,18 +55,12 @@ tests_to_mark = [
         xfail,
         todo_genuine_difference_msg,
     ),
-    (
-        "test_quadrature.py.+TestTanhSinh.test_accuracy.+case97",
-        xfail,
-        "TODO brentq fails to converge",
-    ),
     # scipy/interpolate
     (
         "test_fitpack.+test_kink",
         xfail,
         "TODO error not raised, maybe due to no floating point exception?",
     ),
-    ("test_interpolate.+test_integrate_2d", xfail, todo_genuine_difference_msg),
     # scipy/io
     (
         "test_mmio.py::.+fast_matrix_market",
@@ -146,21 +110,10 @@ tests_to_mark = [
         xfail,
         "TODO no warnings emitted maybe due to no floating point exception?",
     ),
-    ("test_minpack.py.+test_reentrant_func", skip, todo_memory_corruption_msgt),
     ("test_minpack.py::TestFSolve.test_concurrent.+", xfail, process_msg),
     ("test_minpack.py::TestLeastSq.test_concurrent+", xfail, process_msg),
-    (
-        "test_minpack.py::TestFSolve.test_reentrant_Dfunc",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
     ("test_optimize.py::test_cobyla_threadsafe", xfail, thread_msg),
     ("test_optimize.py::TestBrute.test_workers", xfail, process_msg),
-    (
-        "test_zeros.py.+TestDifferentiate.test_accuracy.+case97",
-        xfail,
-        "TODO brentq fails to converge",
-    ),
     # scipy/signal/tests
     (
         "test_signaltools.py::TestMedFilt.test_medfilt2d_parallel",
@@ -195,12 +148,6 @@ tests_to_mark = [
         "support for controlling rounding, see "
         "https://github.com/WebAssembly/design/issues/1384",
     ),
-    # scipy/stats/tests
-    (
-        "test_continuous_basic.py::test_methods_with_lists.+args9[67]",
-        xfail,
-        "TODO brentq fails to converge",
-    ),
     (
         # This test is skipped for PyPy as well, maybe for a related reason?,
         # see
@@ -208,47 +155,6 @@ tests_to_mark = [
         "test_distributions.py::TestBeta.test_boost_eval_issue_14606",
         skip,
         "TODO C++ exception that causes a Pyodide fatal error",
-    ),
-    (
-        "test_distributions.py::TestStudentizedRange.test_(cdf|ppf)_against_tables",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        # parametrized tests from 0 to 72, a few pass but xfailing all the test cases for now
-        "test_distributions.py::TestStudentizedRange.test_(cdf|pdf)_against_mp",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_distributions.py::TestStudentizedRange.test_pdf_integration",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_distributions.py::TestStudentizedRange.test_cdf_against_r.+r_case_result[01]",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_distributions.py::TestStudentizedRange.test_infinite_df",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_distributions.py::TestStudentizedRange.test_clipping",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_hypotests.py::TestTukeyHSD.test_(compare|engineering_stat_handbook|rand_symm)",
-        xfail,
-        todo_genuine_difference_msg,
-    ),
-    (
-        "test_hypotests.py::TestTukeyHSD.test_2_args_ttest",
-        xfail,
-        todo_genuine_difference_msg,
     ),
     (
         "test_kdeoth.py::test_kde_[12]d",
@@ -307,11 +213,6 @@ tests_to_mark = [
         "test_qmc.py::TestMultivariateNormalQMC.test_MultivariateNormalQMCDegenerate",
         xfail,
         todo_genuine_difference_msg,
-    ),
-    (
-        "test_resampling.+TestMonteCarloHypothesisTest.+test_against_anderson.+logistic",
-        skip,
-        todo_memory_corruption_msgt,
     ),
     ("test_sampling.py::test_threading_behaviour", xfail, thread_msg),
     ("test_stats.py::TestMGCStat.test_workers", xfail, process_msg),
