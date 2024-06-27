@@ -38,7 +38,6 @@ tests_to_mark = [
         thread_msg,
     ),
     # scipy/integrate tests
-
     ("test__quad_vec.py::test_quad_vec_pool", xfail, process_msg),
     (
         "test_quadpack.py.+TestCtypesQuad.test_ctypes.*",
@@ -123,6 +122,12 @@ tests_to_mark = [
     # scipy/sparse/tests
     ("test_arpack.py::test_parallel_threads", xfail, thread_msg),
     ("test_array_api.py::test_sparse_dense_divide", xfail, fp_exception_msg),
+    # TODO remove when scipy 1.13 is packaged in Pyodide
+    (
+        "test_base.py.+(COO|DIA|BSR).+multiple_ellipsis_slicing",
+        xfail,
+        "DeprecationWarning for scipy 1.13 not raised not important",
+    ),
     ("test_linsolve.py::TestSplu.test_threads_parallel", xfail, thread_msg),
     ("test_propack", skip, todo_signature_mismatch_msg),
     ("test_sparsetools.py::test_threads", xfail, thread_msg),
