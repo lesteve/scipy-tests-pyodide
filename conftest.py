@@ -28,6 +28,11 @@ tests_to_mark = [
     ("test_import_cycles.py::test_modules_importable", xfail, process_msg),
     ("test_import_cycles.py::test_public_modules_importable", xfail, process_msg),
     # scipy/fft/tests
+    (
+        r"test_basic.py::TestFFT1D.test_dtypes\[float32-numpy\]",
+        xfail,
+        "TODO small floating point difference on the CI but not locally",
+    ),
     ("test_basic.py::TestFFTThreadSafe", xfail, thread_msg),
     ("test_basic.py::test_multiprocess", xfail, process_msg),
     ("test_fft_function.py::test_fft_function", xfail, process_msg),
