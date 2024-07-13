@@ -9,6 +9,7 @@ import asyncio
 expected_test_results = {
     "scipy.cluster.tests": ["passed"],
     "scipy.constants.tests": ["passed"],
+    "scipy.datasets.tests": ["passed"],
     "scipy.fftpack.tests": ["passed"],
     "scipy.fft._pocketfft.tests": ["passed"],
     "scipy.fft.tests": ["passed"],
