@@ -66,4 +66,4 @@ jobs:
 
       - name: Test
         run: |
-          python run-tests-by-module.py
+          node scipy-pytest.js --pyargs scipy
