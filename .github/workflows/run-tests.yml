@@ -66,4 +66,4 @@ jobs:
 
       - name: Test
         run: |
-          node scipy-pytest.js --pyargs scipy
+          node scipy-pytest.js --pyargs scipy -v -ra
